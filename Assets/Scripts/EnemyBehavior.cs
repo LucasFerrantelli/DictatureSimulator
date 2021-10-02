@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour
 {
+    
 
     public float hp;
     public float movementspeed;
     public EnemyType enemyType;
     public List<Effect> effects;
-
+    public State state;
 
     //Enum declarations
     public enum EnemyType { Grunge, Hippie, Biker};
     public enum Effect { Poisoned, Slowed, Flame, Ice};
+    public enum State { Walking, Dead};
 
 
 
