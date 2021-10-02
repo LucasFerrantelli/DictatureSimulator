@@ -26,11 +26,15 @@ public class EnemyBehavior : MonoBehaviour
         
     }
 
-    
+    public void TakeDamage(float damage)
+    {
+        hp -= damage;
+    }    
+
 
     void FixedUpdate()
     {
-        transform.position += new Vector3(0, 0, movementspeed/60);
+        transform.position += new Vector3(0, 0, movementspeed/50);
         
     }
 
