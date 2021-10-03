@@ -152,7 +152,7 @@ public class LawManager : MonoBehaviour
                 GameManager.Instance.difficulty += lawstruct.value;
                 break;
             case Law.IncreaseOverallSpeed:
-                GameManager.Instance.gameSpeed += lawstruct.value;
+                GameManager.Instance.mobSpeedMultiplier += lawstruct.value;
                 break;
             case Law.IncreaseDayTime:
                 GameManager.Instance.defaultTime += lawstruct.value;
