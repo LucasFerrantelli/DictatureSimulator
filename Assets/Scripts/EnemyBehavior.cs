@@ -19,7 +19,7 @@ public class EnemyBehavior : MonoBehaviour
     public float speedAdditioner;
 
     //Enum declarations
-    public enum EnemyType { Grunge, Hippie, Biker};
+    public enum EnemyType { Hippie, KKK, Biker, Nudist, Army};
     public enum Effect { Poisoned, Slowed, Flame, Ice};
     public enum State { Walking, Dead};
 

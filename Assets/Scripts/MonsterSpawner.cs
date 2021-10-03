@@ -24,7 +24,7 @@ public class MonsterSpawner : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(GameManager.Instance.currentTime > 0 && GameManager.Instance.gameState == GameManager.GameState.InFight)
+        if(GameManager.Instance.currentTime > 0 && GameManager.Instance.gameState == GameManager.GameState.InFight && mob!= null)
         {
             currentDelayBetweenSpawn = currentDelayBetweenSpawn - 0.02f;
             if (currentDelayBetweenSpawn <= 0)
