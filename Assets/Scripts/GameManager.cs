@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public int baseHP;
     public float defaultTime = 100;
     public float difficulty;
+    public float damageMultiplier = 1;
 
     public float slowDuration;
     public float slowPercent;
@@ -89,6 +90,11 @@ public class GameManager : MonoBehaviour
                 familiesScores[i] = 1;
             }
 
+        }
+
+        if(damageMultiplier <=0.1f)
+        {
+            damageMultiplier = 0.1f;
         }
 
         

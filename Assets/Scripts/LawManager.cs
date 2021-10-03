@@ -135,7 +135,7 @@ public class LawManager : MonoBehaviour
     public enum Law { IncreaseFamilyStat,
                      WalkOnGrass, CantWalkOnGrass,
                        UnlockTurret, IncreaseTurretCost, DecreaseTurretCost, 
-                    IncreaseOverallDifficulty, IncreaseOverallSpeed, IncreaseDayTime,moneyIncrease,
+                    IncreaseOverallDifficulty, IncreaseOverallSpeed, IncreaseDayTime,moneyIncrease, IncreaseDamageMultiplier,
                       IncreaseFreezeDuration, IncreaseSlowDuration, IncreasePoisonDamage, IncreaseSlowAmount}
 
     public void ApplyLaw(LawStructure lawstruct)
@@ -174,6 +174,10 @@ public class LawManager : MonoBehaviour
                 break;
             case Law.CantWalkOnGrass:
                 grassSpawners = false;
+                break;
+
+            case Law.IncreaseDamageMultiplier:
+                GameManager.Instance.damageMultiplier += lawstruct.value;
                 break;
 
             default:
