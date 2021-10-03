@@ -13,12 +13,11 @@ public class EndDoor : MonoBehaviour
     void OnTriggerEnter(Collider collision)
     {
         EnemyBehavior _enemy = collision.gameObject.GetComponent<EnemyBehavior>();
-        print("a");
+        
         if(_enemy)
         {
-            print("b");
-            GameManager.Instance.baseHP--;
-            Destroy(_enemy.gameObject);
+
+            _enemy.Kamikaze();
         }
     }
 

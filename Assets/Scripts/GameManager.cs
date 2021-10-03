@@ -11,12 +11,17 @@ public class GameManager : MonoBehaviour
     [Header ("Balancing")]
     public int baseHP;
     public float defaultTime = 100;
+    public float difficulty;
 
+
+    public List<bool> turretsUnlocked;
+    public List<GameObject> turrets;
 
     [Header ("Settings/debug")]
     public GameState gameState;
     public float currentTime;
     public float gameSpeed;
+    public List<EnemyBehavior> currentEnemies;
 
     [Header("Families")]
     public List<float> familiesScores;
@@ -35,7 +40,7 @@ public class GameManager : MonoBehaviour
         public float basicDelay;
     }
 
-    public enum GameState { InFight, Preparation, LawVoting}
+    public enum GameState { InFight, Preparation, LawVoting, dayEnd}
 
 
 
@@ -56,44 +61,50 @@ public class GameManager : MonoBehaviour
         //DeclareWaves();
     }
 
+
     void FixedUpdate()
     {
-        currentTime -= gameSpeed / 50;
-
+        if(gameState == GameState.InFight)
+        {
+            currentTime -= gameSpeed / 50;
+            if (currentTime < 0 && currentEnemies.Count == 0)
+            {
+                gameState = GameState.dayEnd;
+            }
+        }
+        
 
     }
 
 
     public void DeclareWaves()
     {
-        List<int> spawnableFamilies = new List<int>();
+        //List<bool> familiesToDistribued = new List<bool>();
+        //List<bool> attributedFamilies = new List<bool>();
 
 
-        for (int i = 0; i < familiesScores.Count; i++)
-        {
+        //for (int i = 0; i < familiesScores.Count; i++)
+        //{
 
-            if (familiesScores[i] > 0)
-            {
-                spawnableFamilies.Add(0);
+        //}
 
-            }
-        }
 
-        List<int> _subspawnableFamilies = spawnableFamilies;
+        //for (int i = 0; i < spawners.Count; i++)
+        //{
+        //    for (int i = 0; i < familiesScores; i++)
+        //    {
 
-        for (int i = 0; i < spawners.Count; i++)
-        {
+        //    }
+        //    spawners[i].monstersToSpawn.Capacity = familiesScores.Capacity;
+        //    //spawners[i].monstersToSpawn[_spawnableFamilies[0]] = true;
+        //    //_spawnableFamilies.Remove(0);
 
-            spawners[i].monstersToSpawn.Capacity = familiesScores.Capacity;
-            //spawners[i].monstersToSpawn[_spawnableFamilies[0]] = true;
-            //_spawnableFamilies.Remove(0);
-
-            //if(_spawnableFamilies.Capacity == 0)
-            //{
-            //    _spawnableFamilies = spawnableFamilies;
-            //}
-            //spawners[i].Init();
-        }
+        //    //if(_spawnableFamilies.Capacity == 0)
+        //    //{
+        //    //    _spawnableFamilies = spawnableFamilies;
+        //    //}
+        //    //spawners[i].Init();
+        //}
 
     }
 

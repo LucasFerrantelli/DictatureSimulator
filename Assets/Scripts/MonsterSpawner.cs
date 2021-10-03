@@ -14,11 +14,11 @@ public class MonsterSpawner : MonoBehaviour
     // Start is called before the first frame update
     public void Init()
     {
-        currentdelayBetweenSpawn.Capacity = GameManager.Instance.families.Capacity;
-        for (int i = 0; i < GameManager.Instance.families.Count; i++)
-        {
-            currentdelayBetweenSpawn[i] = GameManager.Instance.families[i].basicDelay;
-        }
+        //currentdelayBetweenSpawn.Capacity = GameManager.Instance.families.Capacity;
+        //for (int i = 0; i < GameManager.Instance.families.Count; i++)
+        //{
+        //    currentdelayBetweenSpawn[i] = GameManager.Instance.families[i].basicDelay;
+        //}
 
     }
 
