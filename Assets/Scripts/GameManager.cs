@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public GameState gameState;
     public float currentTime;
     public float gameSpeed;
+    public float mobSpeedMultiplier = 1;
     public List<EnemyBehavior> currentEnemies;
 
 	[Header("Families")]
@@ -30,8 +31,12 @@ public class GameManager : MonoBehaviour
 
 	[Header("References")]
 	public Text hpBaseTextDisplay;
+    public Text moneyTextDisplay;
+    public Text timeTextDisplay;
 	public List<MonsterSpawner> spawners;
     Camera mainCam;
+    public Animator gameUIAnimator;
+    
 
 	[Header("Economy")]
 	public float currentMoney = 1000;
@@ -59,30 +64,35 @@ public class GameManager : MonoBehaviour
 		mainCam = Camera.main;
 	}
 
-    void StartLawVotting()
+    public void StartLawVotting()
     {
-
+        gameUIAnimator.Play("LawVotting");
     }
 
-    void StartPreparation()
+    public void StartPreparation()
     {
+        gameUIAnimator.Play("Preparation");
         currentTime = defaultTime;
         //moneyVaritation += AddMoney;
         DeclareWaves();
     }
 
-    void StartFight()
+    public void StartFight()
     {
+        gameUIAnimator.Play("Combat");
         gameState = GameState.InFight;
+    }
+
+    public void DayEnds()
+    {
+        gameState = GameState.dayEnd;
+        StartLawVotting();
     }
 
 	void Init ()
 	{
 		
 	}
-
-
-
 
     void FixedUpdate()
     {
@@ -91,7 +101,7 @@ public class GameManager : MonoBehaviour
             currentTime -= gameSpeed / 50;
             if (currentTime < 0 && currentEnemies.Count == 0)
             {
-                gameState = GameState.dayEnd;
+                DayEnds();
             }
         }
         
@@ -131,7 +141,9 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        moneyTextDisplay.text = currentMoney.ToString();
         hpBaseTextDisplay.text = baseHP.ToString();
+        timeTextDisplay.text = currentTime.ToString();
     }
 }
 

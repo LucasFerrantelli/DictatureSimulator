@@ -58,7 +58,7 @@ public class EnemyBehavior : MonoBehaviour
 
     void FixedUpdate()
     {
-        transform.position += new Vector3(0, 0, movementspeed/50);
+        transform.position += new Vector3(0, 0, GameManager.Instance.mobSpeedMultiplier * movementspeed/50);
         
     }
 
