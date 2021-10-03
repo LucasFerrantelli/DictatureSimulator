@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Mb_Spot : MonoBehaviour, Interactible
 {
-	Mb_Tower myTower = null;
+	[HideInInspector]public Mb_Tower myTower = null;
 
 	public void Interract()
 	{

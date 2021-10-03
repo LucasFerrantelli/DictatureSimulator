@@ -19,6 +19,18 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6393832067792684193, guid: ac6dea7408a0f614d8f17abdaea4c06e, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6393832067792684193, guid: ac6dea7408a0f614d8f17abdaea4c06e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f6401f220b3885a49ae740acf218c3b4, type: 2}
+    - target: {fileID: 6393832067792684193, guid: ac6dea7408a0f614d8f17abdaea4c06e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 9075771834314585809, guid: ac6dea7408a0f614d8f17abdaea4c06e, type: 3}
       propertyPath: m_Name
       value: E_Nudist
@@ -35,6 +47,18 @@ PrefabInstance:
       propertyPath: movementspeed
       value: 4.5
       objectReference: {fileID: 0}
+    - target: {fileID: 9075771834314585814, guid: ac6dea7408a0f614d8f17abdaea4c06e, type: 3}
+      propertyPath: variance.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 52f8e59c50e2b8d498b5e56f4432df43, type: 2}
+    - target: {fileID: 9075771834314585814, guid: ac6dea7408a0f614d8f17abdaea4c06e, type: 3}
+      propertyPath: variance.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 75a3297e63e766146b987510596e8873, type: 2}
+    - target: {fileID: 9075771834314585814, guid: ac6dea7408a0f614d8f17abdaea4c06e, type: 3}
+      propertyPath: variance.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: f6401f220b3885a49ae740acf218c3b4, type: 2}
     - target: {fileID: 9075771834314585818, guid: ac6dea7408a0f614d8f17abdaea4c06e, type: 3}
       propertyPath: m_RootOrder
       value: 0
