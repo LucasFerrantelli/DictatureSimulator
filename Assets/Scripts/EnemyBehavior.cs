@@ -24,6 +24,7 @@ public class EnemyBehavior : MonoBehaviour
     {
         if(LawManager.Instance.allowSelfDefense)
         {
+            CameraHandler.Instance.remainingShakeDuration = 4;
             TakeDamage(10);
         }
     }
