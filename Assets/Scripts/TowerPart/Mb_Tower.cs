@@ -8,12 +8,12 @@ using UnityEngine.Events;
 public class Mb_Tower : MonoBehaviour
 {
 	public Sc_TowerInfos baseDatas;
-	public TowerData liveDatas;
+ [HideInInspector]	public TowerData liveDatas;
 	[SerializeField] GameObject projectilePrefab;
 	public Mb_Spot mySpot;
 	//shoot part
 	List<EnemyBehavior> enemyInRange;
-	float reloadTime, annonciaitonTime;
+	float reloadTime, annonciationTime=0;
 	bool shooting;
 	public UnityEvent shootCanalisation, shootRealisation;
 	void Update ()
@@ -29,9 +29,16 @@ public class Mb_Tower : MonoBehaviour
 	void Init ()
 	{
 		liveDatas = new TowerData();
-		liveDatas.damage = baseDatas.towerBaseDatas.damage;
+		/*liveDatas.damage = baseDatas.towerBaseDatas.damage;
 		liveDatas.range = baseDatas.towerBaseDatas.range;
 		liveDatas.price = baseDatas.towerBaseDatas.price;
+		liveDatas.annonciationTime = baseDatas.towerBaseDatas.annonciationTime;
+		liveDatas.reloadTime = baseDatas.towerBaseDatas.reloadTime;
+		liveDatas.numberOfTarget = baseDatas.towerBaseDatas.numberOfTarget;
+		liveDatas.towerProjectileSpeed = baseDatas.towerBaseDatas.towerProjectileSpeed; */
+		liveDatas = baseDatas.towerBaseDatas;
+
+		annonciationTime = liveDatas.annonciationTime;
 	}
 
 	private void FixedUpdate ()
@@ -51,8 +58,9 @@ public class Mb_Tower : MonoBehaviour
 			shootCanalisation?.Invoke();
 		}
 		shooting = true;
+		annonciationTime -= Time.fixedDeltaTime;
 
-		if (annonciaitonTime > liveDatas.annonciationTime)
+		if (annonciationTime > liveDatas.annonciationTime && shooting ==true)
 		{
 			if (liveDatas.towerDealingType == TowerDamageType.aoe)
 			{
@@ -70,10 +78,13 @@ public class Mb_Tower : MonoBehaviour
 				{
 					if (i > _listOfTarget.Length)
 						break;
-					_listOfTarget[i].TakeDamage(liveDatas.damage);
+					_listOfTarget[i].TakeDamage(liveDatas.damage); ;
+					_listOfTarget[i].ApplyEffect(liveDatas.effectToApply);
 				}
 			}
+
 			reloadTime = liveDatas.reloadTime;
+			annonciationTime = liveDatas.annonciationTime;
 			shooting = false;
 
 		}
@@ -81,16 +92,26 @@ public class Mb_Tower : MonoBehaviour
 
 	EnemyBehavior[] enemiesInRange (float range)
 	{
-		List<RaycastHit> _temp = Physics.SphereCastAll(transform.position, range, Vector3.zero, 7).ToList();
+		List<Collider> _temp = Physics.OverlapSphere(transform.position, range,1 << 7).ToList();
 		List<EnemyBehavior> _allEnemies = new List<EnemyBehavior>();
-
-		foreach (RaycastHit _hit in _temp)
+		foreach (Collider _hit in _temp)
 		{
-			_allEnemies.Add(_hit.collider.GetComponent<EnemyBehavior>());
+			_allEnemies.Add(_hit.GetComponent<EnemyBehavior>());
 		}
-
 		_allEnemies = _allEnemies.OrderBy(x => x.transform.position.x).ToList<EnemyBehavior>();
 		return _allEnemies.ToArray();
+	}
+
+	public void SellTower()
+	{
+		GameManager.Instance.moneyVaritation?.Invoke(liveDatas.price * .6f);
+		mySpot.myTower = null;
+		Destroy(gameObject);
+	}
+
+	private void OnDrawGizmosSelected ()
+	{
+		Gizmos.DrawSphere(transform.position, liveDatas.range);
 	}
 }
 
@@ -100,6 +121,7 @@ public struct TowerData
 {
 	public float price, range, damage, numberOfTarget, reloadTime, annonciationTime, towerProjectileSpeed;
 	public TowerDamageType towerDealingType;
+	public AdditionalEffect effectToApply;
 }
 
 public enum TowerDamageType

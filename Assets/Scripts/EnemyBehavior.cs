@@ -16,7 +16,6 @@ public class EnemyBehavior : MonoBehaviour
     public float hpAdded;
     public float speedAdditioner;
 
-    public enum AdditionalEffect { Slow, Poison, Stun }
 
     //Enum declarations
     public enum EnemyType {None, Hippie, KKK, Biker, Nudist, Army};
@@ -177,3 +176,6 @@ public class EnemyBehavior : MonoBehaviour
     // Update is called once per frame
 
 }
+
+public enum AdditionalEffect {None, Slow, Poison, Stun }
+

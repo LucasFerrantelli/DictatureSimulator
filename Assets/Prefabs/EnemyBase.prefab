@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8791547824934606984}
   - component: {fileID: 6070975771729848642}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -226,6 +226,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 3128093290833079033, guid: 549781bed747be14b81b16822075d4b9, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5995021481168090951, guid: 549781bed747be14b81b16822075d4b9, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -270,7 +274,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 604219842341541951, guid: 549781bed747be14b81b16822075d4b9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 549781bed747be14b81b16822075d4b9, type: 3}
 --- !u!4 &282445412266568646 stripped
 Transform:
