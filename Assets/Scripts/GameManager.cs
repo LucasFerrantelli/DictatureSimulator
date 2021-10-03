@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
     {
         if(lightRef.colorTemperature > 3000)
         {
-            lightRef.colorTemperature--;
+            lightRef.colorTemperature++;
 
         }
         if (lightHD.intensity > 20)
