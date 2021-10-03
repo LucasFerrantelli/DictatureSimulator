@@ -8,18 +8,15 @@ using UnityEngine.Events;
 public class Mb_Tower : MonoBehaviour
 {
 	public Sc_TowerInfos baseDatas;
- [HideInInspector]	public TowerData liveDatas;
+	[HideInInspector] public TowerData liveDatas;
 	[SerializeField] GameObject projectilePrefab;
 	public Mb_Spot mySpot;
 	//shoot part
 	List<EnemyBehavior> enemyInRange;
-	float reloadTime, annonciationTime=0;
+	float reloadTime, annonciationTime = 0;
 	bool shooting;
 	public UnityEvent shootCanalisation, shootRealisation;
-	void Update ()
-	{
-
-	}
+	public Animator anim;
 
 	private void OnEnable ()
 	{
@@ -45,54 +42,66 @@ public class Mb_Tower : MonoBehaviour
 	{
 		if (reloadTime > 0)
 			reloadTime -= Time.fixedDeltaTime;
-		else if (enemiesInRange(liveDatas.range).Length > 0)
+		else if (enemiesInRange(liveDatas.range).Length > 0 && !shooting)
 		{
 			StartShooting();
+		}
+
+		if (shooting && annonciationTime > 0)
+		{
+			annonciationTime -= Time.fixedDeltaTime;
+		}
+		else if (shooting)
+		{
+			Shoot();
 		}
 	}
 
 	void StartShooting ()
 	{
-		if (shooting == false)
-		{
-			shootCanalisation?.Invoke();
-		}
+		shootCanalisation?.Invoke();
+		//anim.SetTrigger("Shoot");
 		shooting = true;
-		annonciationTime -= Time.fixedDeltaTime;
+	}
 
-		if (annonciationTime > liveDatas.annonciationTime && shooting ==true)
+	void Shoot ()
+	{
+		shooting = false;
+
+		reloadTime = liveDatas.reloadTime;
+		annonciationTime = liveDatas.annonciationTime;
+
+		if (liveDatas.towerDealingType == TowerDamageType.aoe)
 		{
-			if (liveDatas.towerDealingType == TowerDamageType.aoe)
+			foreach (EnemyBehavior _en in enemiesInRange(liveDatas.range))
 			{
-				foreach (EnemyBehavior _en in enemiesInRange(liveDatas.range))
-				{
-					_en.TakeDamage(liveDatas.damage);
-				}
+				_en.TakeDamage(liveDatas.damage);
+				_en.ApplyEffect(liveDatas.effectToApply);
+				anim.transform.LookAt(_en.transform);
 			}
-			else
+		}
+		else
+		{
+			//au cas ou l enemi sort de la range alors que on veut lui tirer dessus
+			EnemyBehavior[] _listOfTarget = enemiesInRange(liveDatas.range + 1);
+			anim.transform.LookAt(_listOfTarget[0].transform);
+
+			for (int i = 0; i < liveDatas.numberOfTarget; i++)
 			{
-				//au cas ou l enemi sort de la range alors que on veut lui tirer dessus
-				EnemyBehavior[] _listOfTarget = enemiesInRange(liveDatas.range+1);
 
-				for (int i = 0; i < liveDatas.numberOfTarget; i++)
-				{
-					if (i > _listOfTarget.Length)
-						break;
-					_listOfTarget[i].TakeDamage(liveDatas.damage); ;
-					_listOfTarget[i].ApplyEffect(liveDatas.effectToApply);
-				}
+				if (i > _listOfTarget.Length)
+					break;
+
+				print(_listOfTarget[i].name);
+				_listOfTarget[i].TakeDamage(liveDatas.damage); ;
+				_listOfTarget[i].ApplyEffect(liveDatas.effectToApply);
 			}
-
-			reloadTime = liveDatas.reloadTime;
-			annonciationTime = liveDatas.annonciationTime;
-			shooting = false;
-
 		}
 	}
 
-	EnemyBehavior[] enemiesInRange (float range)
+	EnemyBehavior[] enemiesInRange ( float range )
 	{
-		List<Collider> _temp = Physics.OverlapSphere(transform.position, range,1 << 7).ToList();
+		List<Collider> _temp = Physics.OverlapSphere(transform.position, range, 1 << 7).ToList();
 		List<EnemyBehavior> _allEnemies = new List<EnemyBehavior>();
 		foreach (Collider _hit in _temp)
 		{
@@ -102,7 +111,7 @@ public class Mb_Tower : MonoBehaviour
 		return _allEnemies.ToArray();
 	}
 
-	public void SellTower()
+	public void SellTower ()
 	{
 		GameManager.Instance.moneyVaritation?.Invoke(liveDatas.price * .6f);
 		mySpot.myTower = null;
