@@ -1024,7 +1024,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Texture2DMaterialSlot",
     "m_ObjectId": "4f936a41dd8b4cbe9fc06422554028ff",
     "m_Id": 0,
-    "m_DisplayName": "Action",
+    "m_DisplayName": "Albedo",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
