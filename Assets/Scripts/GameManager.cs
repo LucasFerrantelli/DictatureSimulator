@@ -35,6 +35,8 @@ public class GameManager : MonoBehaviour
     public float gameSpeed;
     public float mobSpeedMultiplier = 1;
     public List<EnemyBehavior> currentEnemies;
+    public bool raining;
+    public float solarMultiplier= 1;
 
 	[Header("Families")]
 	public List<float> familiesScores;
@@ -86,22 +88,48 @@ public class GameManager : MonoBehaviour
     HDAdditionalLightData lightHD;
     void UpdateLight()
     {
-        if(lightRef.colorTemperature > 3000)
+        if(raining)
         {
-            lightRef.colorTemperature++;
-
+            solarMultiplier = 0.11f;
         }
-        if (lightHD.intensity > 20)
+        else
         {
-            lightHD.intensity -= 0.02f;
+            if (lightRef.colorTemperature < 20000)
+            {
+                lightRef.colorTemperature++;
+                solarMultiplier = 1f;
+            }
+            else
+            {
+                solarMultiplier = 0.2f;
+            }
+            if (lightHD.intensity > 20)
+            {
+                lightHD.intensity -= 0.02f;
+                solarMultiplier = 1f;
+            }
+            else
+            {
+                solarMultiplier = 0.2f;
+            }
         }
+        
         
     }
 
     void ResetLight()
     {
-        lightRef.colorTemperature = 5500;
-        lightHD.intensity = 40;
+        if(!raining)
+        {
+            lightRef.colorTemperature = 5500;
+            lightHD.intensity = 40;
+        }
+        else
+        {
+            lightRef.colorTemperature = 20000;
+            lightHD.intensity = 20;
+        }
+        
     }
 
     public void StartLawVotting()
@@ -143,6 +171,7 @@ public class GameManager : MonoBehaviour
         gameUIAnimator.Play("Preparation");
         currentTime = defaultTime;
         gameState = GameState.Preparation;
+        currentMoney += moneyPerDay;
         moneyVaritation += AddMoney;
         DeclareWaves();
     }
@@ -188,6 +217,8 @@ public class GameManager : MonoBehaviour
                 Instantiate(policeCar, policeCarSpawner[UnityEngine.Random.Range(0, 2)].transform);
             }
         }
+
+        
     }
 
 	public void DeclareWaves ()
