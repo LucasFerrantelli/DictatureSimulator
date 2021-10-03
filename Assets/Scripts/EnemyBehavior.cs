@@ -38,7 +38,7 @@ public class EnemyBehavior : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        hp -= damage;
+        hp -= damage * GameManager.Instance.damageMultiplier;
         if(hp <= 0)
         {
             Die();
