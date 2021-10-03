@@ -326,6 +326,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &106130714 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2882937372455620937, guid: cc3b110fac7d7f6409e8bc73328a1b6a, type: 3}
+  m_PrefabInstance: {fileID: 6760509496096907330}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &120603782
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1611,6 +1616,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1667759611509445716, guid: d24badc1d7329c345818237ac81a2ab7, type: 3}
   m_PrefabInstance: {fileID: 590471703}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &616070771 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8949263532189737050, guid: cc3b110fac7d7f6409e8bc73328a1b6a, type: 3}
+  m_PrefabInstance: {fileID: 6760509496096907330}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &620456258
 GameObject:
@@ -4141,7 +4151,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1811519617}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -16.100002, y: 13.4, z: 4.3}
+  m_LocalPosition: {x: -19.05, y: 18.29, z: 0.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1592338731}
@@ -5918,6 +5928,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 76820797169384378, guid: cc3b110fac7d7f6409e8bc73328a1b6a, type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 616070771}
     - target: {fileID: 5193415811077857094, guid: cc3b110fac7d7f6409e8bc73328a1b6a, type: 3}
       propertyPath: projectilePrefab
       value: 
@@ -5942,6 +5956,10 @@ PrefabInstance:
       propertyPath: projectilePrefab
       value: 
       objectReference: {fileID: 251635283}
+    - target: {fileID: 6134051795519408809, guid: cc3b110fac7d7f6409e8bc73328a1b6a, type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 106130714}
     - target: {fileID: 6760509495340484741, guid: cc3b110fac7d7f6409e8bc73328a1b6a, type: 3}
       propertyPath: m_Name
       value: GameManager

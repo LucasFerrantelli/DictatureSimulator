@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 828689309700360978, guid: ac6dea7408a0f614d8f17abdaea4c06e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 6070975771729848642, guid: ac6dea7408a0f614d8f17abdaea4c06e, type: 3}
       propertyPath: m_Color.b
       value: 0.10849059
@@ -19,9 +23,17 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.1670456
       objectReference: {fileID: 0}
+    - target: {fileID: 6393832067792684220, guid: ac6dea7408a0f614d8f17abdaea4c06e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 9075771834314585809, guid: ac6dea7408a0f614d8f17abdaea4c06e, type: 3}
       propertyPath: m_Name
       value: E_Hippie
+      objectReference: {fileID: 0}
+    - target: {fileID: 9075771834314585809, guid: ac6dea7408a0f614d8f17abdaea4c06e, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 9075771834314585814, guid: ac6dea7408a0f614d8f17abdaea4c06e, type: 3}
       propertyPath: hp
