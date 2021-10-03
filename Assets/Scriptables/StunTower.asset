@@ -21,6 +21,7 @@ MonoBehaviour:
     damage: 100
     numberOfTarget: 1
     reloadTime: 0
-    annonciationTime: 0
+    annonciationTime: 0.2
     towerProjectileSpeed: 0
     towerDealingType: 0
+    effectToApply: 0
