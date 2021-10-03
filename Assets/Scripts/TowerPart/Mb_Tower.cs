@@ -17,6 +17,7 @@ public class Mb_Tower : MonoBehaviour
 	bool shooting;
 	public UnityEvent shootCanalisation, shootRealisation;
 	public Animator anim;
+	public Transform pivot;
 
 	private void OnEnable ()
 	{
@@ -60,7 +61,7 @@ public class Mb_Tower : MonoBehaviour
 	void StartShooting ()
 	{
 		shootCanalisation?.Invoke();
-		//anim.SetTrigger("Shoot");
+		anim.SetTrigger("Shoot");
 		shooting = true;
 	}
 
@@ -84,7 +85,12 @@ public class Mb_Tower : MonoBehaviour
 		{
 			//au cas ou l enemi sort de la range alors que on veut lui tirer dessus
 			EnemyBehavior[] _listOfTarget = enemiesInRange(liveDatas.range + 1);
-			anim.transform.LookAt(_listOfTarget[0].transform);
+			if (_listOfTarget.Length > 0)
+			{
+				pivot.LookAt(new Vector3(_listOfTarget[0].transform.position.x, transform.position.y, _listOfTarget[0].transform.position.z));
+			}
+			else
+				return;
 
 			for (int i = 0; i < liveDatas.numberOfTarget; i++)
 			{
@@ -107,7 +113,7 @@ public class Mb_Tower : MonoBehaviour
 		{
 			_allEnemies.Add(_hit.GetComponent<EnemyBehavior>());
 		}
-		_allEnemies = _allEnemies.OrderBy(x => x.transform.position.x).ToList<EnemyBehavior>();
+		_allEnemies = _allEnemies.OrderBy(z => z.transform.position.z).ToList<EnemyBehavior>();
 		return _allEnemies.ToArray();
 	}
 
