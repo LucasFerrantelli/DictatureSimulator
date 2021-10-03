@@ -68,11 +68,12 @@ public class Mb_Tower : MonoBehaviour
 	void Shoot ()
 	{
 		shooting = false;
+		print("im here");
 
 		reloadTime = liveDatas.reloadTime;
 		annonciationTime = liveDatas.annonciationTime;
 
-		if (liveDatas.towerDealingType == TowerDamageType.aoe)
+		if (liveDatas.towerDealingType == TowerDamageType.direct)
 		{
 			foreach (EnemyBehavior _en in enemiesInRange(liveDatas.range))
 			{
@@ -81,9 +82,8 @@ public class Mb_Tower : MonoBehaviour
 				anim.transform.LookAt(_en.transform);
 			}
 		}
-		else
+		else if (liveDatas.towerDealingType == TowerDamageType.aoe)
 		{
-			//au cas ou l enemi sort de la range alors que on veut lui tirer dessus
 			EnemyBehavior[] _listOfTarget = enemiesInRange(liveDatas.range + 1);
 			if (_listOfTarget.Length > 0)
 			{
@@ -103,11 +103,35 @@ public class Mb_Tower : MonoBehaviour
 				_listOfTarget[i].ApplyEffect(liveDatas.effectToApply);
 			}
 		}
+		else
+		{
+			EnemyBehavior[] _listOfTargetFlame = enemiesInRange(liveDatas.range + 1, typeOfAoe.flame);
+			if (_listOfTargetFlame.Length > 0)
+			{
+				pivot.LookAt(new Vector3(_listOfTargetFlame[0].transform.position.x, transform.position.y, _listOfTargetFlame[0].transform.position.z));
+			}
+			else
+				return;
+			foreach (EnemyBehavior _en in enemiesInRange(liveDatas.range))
+			{
+				_en.TakeDamage(liveDatas.damage);
+				_en.ApplyEffect(liveDatas.effectToApply);
+				anim.transform.LookAt(_en.transform);
+			}
+		}
 	}
 
-	EnemyBehavior[] enemiesInRange ( float range )
+	enum typeOfAoe { classic, flame }
+
+	EnemyBehavior[] enemiesInRange ( float range, typeOfAoe _aoeType = typeOfAoe.classic )
 	{
-		List<Collider> _temp = Physics.OverlapSphere(transform.position, range, 1 << 7).ToList();
+		List<Collider> _temp = new List<Collider>();
+
+		if (_aoeType == typeOfAoe.classic)
+			_temp = Physics.OverlapSphere(transform.position, range, 1 << 7).ToList();
+		else
+			_temp = Physics.OverlapCapsule(transform.position, transform.position + pivot.forward * liveDatas.range, 4, 1 << 7).ToList();
+
 		List<EnemyBehavior> _allEnemies = new List<EnemyBehavior>();
 		foreach (Collider _hit in _temp)
 		{
@@ -141,5 +165,5 @@ public struct TowerData
 
 public enum TowerDamageType
 {
-	direct, aoe
+	direct, aoe, lanceFlamme
 }
