@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
     void StartPreparation()
     {
         currentTime = defaultTime;
-        //moneyVaritation += AddMoney;
+        moneyVaritation += AddMoney;
         DeclareWaves();
     }
 
@@ -80,7 +80,6 @@ public class GameManager : MonoBehaviour
 	{
 		
 	}
-
 
 
 
@@ -123,13 +122,15 @@ public class GameManager : MonoBehaviour
 
 	}
 
+	public void AddMoney ( float _moneyVariation )
+	{
+		currentMoney += _moneyVariation;
+	}
 
-    
 
 
-
-    // Update is called once per frame
-    void Update()
+	// Update is called once per frame
+	void Update ()
     {
         hpBaseTextDisplay.text = baseHP.ToString();
     }
