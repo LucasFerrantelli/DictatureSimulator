@@ -24,8 +24,16 @@ PrefabInstance:
       value: E_Nudist
       objectReference: {fileID: 0}
     - target: {fileID: 9075771834314585814, guid: ac6dea7408a0f614d8f17abdaea4c06e, type: 3}
+      propertyPath: hp
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9075771834314585814, guid: ac6dea7408a0f614d8f17abdaea4c06e, type: 3}
       propertyPath: enemyType
-      value: 3
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9075771834314585814, guid: ac6dea7408a0f614d8f17abdaea4c06e, type: 3}
+      propertyPath: movementspeed
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 9075771834314585818, guid: ac6dea7408a0f614d8f17abdaea4c06e, type: 3}
       propertyPath: m_RootOrder

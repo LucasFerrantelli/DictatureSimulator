@@ -823,6 +823,11 @@ PrefabInstance:
       objectReference: {fileID: 2128443935}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ec9e3612c54bfd4f876f7cd6219d58b, type: 3}
+--- !u!108 &288480010 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 7892570805556401134, guid: 8f8870857f8a3354999c6482ebd1d9ad, type: 3}
+  m_PrefabInstance: {fileID: 803169942}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &301002199 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7930595216254141005, guid: 4ec9e3612c54bfd4f876f7cd6219d58b, type: 3}
@@ -907,6 +912,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 302910390}
   m_CullTransparentMesh: 1
+--- !u!1 &310427275
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 310427276}
+  m_Layer: 0
+  m_Name: CarSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &310427276
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310427275}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2, y: 3, z: 21}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &313884701 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7934394979145890128, guid: edc196d2b1b09414c8c72f1e449c65aa, type: 3}
@@ -1127,7 +1162,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &489856134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1650,6 +1685,18 @@ PrefabInstance:
     - target: {fileID: 5389639665658182546, guid: 8f8870857f8a3354999c6482ebd1d9ad, type: 3}
       propertyPath: m_Name
       value: Enviro
+      objectReference: {fileID: 0}
+    - target: {fileID: 7892570805556401134, guid: 8f8870857f8a3354999c6482ebd1d9ad, type: 3}
+      propertyPath: m_Intensity
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7892570805556401134, guid: 8f8870857f8a3354999c6482ebd1d9ad, type: 3}
+      propertyPath: m_BounceIntensity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7892570805556401135, guid: 8f8870857f8a3354999c6482ebd1d9ad, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f8870857f8a3354999c6482ebd1d9ad, type: 3}
@@ -2736,7 +2783,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1280968750
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3401,6 +3448,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3d0bf91d4cbf374ba3b76be08eee115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1557760946
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1557760947}
+  m_Layer: 0
+  m_Name: CarSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1557760947
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1557760946}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7, y: 3, z: 21}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1592338728
 GameObject:
   m_ObjectHideFlags: 0
@@ -4790,7 +4867,7 @@ PrefabInstance:
       objectReference: {fileID: 918860679}
     - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
       propertyPath: lawEvents.Array.size
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
       propertyPath: lawEvents.Array.data[1].once
@@ -4861,6 +4938,18 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[8].unfold.weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[9].unfold.weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[10].unfold.weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
       propertyPath: lawEvents.Array.data[0].eventDescription
       value: Would you like to abolish death penalty?
       objectReference: {fileID: 0}
@@ -4910,6 +4999,14 @@ PrefabInstance:
       value: Enter global conflicts
       objectReference: {fileID: 0}
     - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[8].unfold.eventName
+      value: ALLOW SELF DEFENSE
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[9].unfold.eventName
+      value: ALLOW SMOKING PLANTS
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
       propertyPath: lawEvents.Array.data[0].lawOne.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -4932,6 +5029,10 @@ PrefabInstance:
         Less brigade
 
         More Hippies'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[10].unfold.eventName
+      value: INVEST IN POLICE CAR
       objectReference: {fileID: 0}
     - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
       propertyPath: lawEvents.Array.data[1].lawOne.Array.size
@@ -5036,6 +5137,22 @@ PrefabInstance:
     - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
       propertyPath: lawEvents.Array.data[7].lawTwo.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[8].lawOne.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[9].lawOne.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[9].lawTwo.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[10].lawOne.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
       propertyPath: lawEvents.Array.data[0].unfold.eventDescription
@@ -5253,6 +5370,56 @@ PrefabInstance:
         Decrease overall turret damge'
       objectReference: {fileID: 0}
     - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[8].lawOne.Array.data[0].law
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[8].lawOne.Array.data[1].law
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[8].lawOne.Array.data[2].law
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[8].unfold.lawOneDescription
+      value: 'YES
+
+        Shoot people by yourslef
+
+        Increase difficulty'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[8].unfold.lawTwoDescription
+      value: 'NO
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[9].lawOne.Array.data[0].law
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[9].lawOne.Array.data[1].law
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[9].unfold.lawOneDescription
+      value: 'YES
+
+        People are slow down
+
+        More brigade'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[9].unfold.lawTwoDescription
+      value: 'NO
+
+        More ecologist
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
       propertyPath: lawEvents.Array.data[0].lawOne.Array.data[0].stat
       value: 3
       objectReference: {fileID: 0}
@@ -5267,6 +5434,24 @@ PrefabInstance:
     - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
       propertyPath: lawEvents.Array.data[0].lawTwo.Array.data[1].stat
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[10].lawOne.Array.data[0].law
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[10].lawOne.Array.data[1].law
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[10].unfold.lawOneDescription
+      value: 'YES
+
+        Less money'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[10].unfold.lawTwoDescription
+      value: NO
       objectReference: {fileID: 0}
     - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
       propertyPath: lawEvents.Array.data[1].lawOne.Array.data[0].stat
@@ -5346,6 +5531,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
       propertyPath: lawEvents.Array.data[7].lawTwo.Array.data[0].stat
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[9].lawOne.Array.data[1].stat
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[9].lawTwo.Array.data[0].stat
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
@@ -5556,6 +5749,42 @@ PrefabInstance:
       propertyPath: lawEvents.Array.data[7].lawTwo.Array.data[0].value
       value: -0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[8].lawOne.Array.data[1].value
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[8].lawOne.Array.data[2].value
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[9].lawOne.Array.data[0].value
+      value: -0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[9].lawOne.Array.data[1].enemy
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[9].lawOne.Array.data[1].value
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[9].lawTwo.Array.data[0].enemy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[9].lawTwo.Array.data[0].value
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[10].lawOne.Array.data[0].value
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495955060375728949, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
+      propertyPath: lawEvents.Array.data[10].lawOne.Array.data[1].value
+      value: -300
+      objectReference: {fileID: 0}
     - target: {fileID: 6495955060375728950, guid: 3c10339581f4a7845a1f8c258a434cfc, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -5614,16 +5843,32 @@ PrefabInstance:
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 6760509495340484746, guid: cc3b110fac7d7f6409e8bc73328a1b6a, type: 3}
+      propertyPath: light
+      value: 
+      objectReference: {fileID: 288480010}
+    - target: {fileID: 6760509495340484746, guid: cc3b110fac7d7f6409e8bc73328a1b6a, type: 3}
+      propertyPath: lightRef
+      value: 
+      objectReference: {fileID: 288480010}
+    - target: {fileID: 6760509495340484746, guid: cc3b110fac7d7f6409e8bc73328a1b6a, type: 3}
       propertyPath: gameSpeed
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6760509495340484746, guid: cc3b110fac7d7f6409e8bc73328a1b6a, type: 3}
       propertyPath: gameState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6760509495340484746, guid: cc3b110fac7d7f6409e8bc73328a1b6a, type: 3}
+      propertyPath: policeCar
+      value: 
+      objectReference: {fileID: 1167029958539791623, guid: e6b91914196cdb5438443a4d5d0d02af, type: 3}
+    - target: {fileID: 6760509495340484746, guid: cc3b110fac7d7f6409e8bc73328a1b6a, type: 3}
       propertyPath: difficulty
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760509495340484746, guid: cc3b110fac7d7f6409e8bc73328a1b6a, type: 3}
+      propertyPath: policeOdds
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6760509495340484746, guid: cc3b110fac7d7f6409e8bc73328a1b6a, type: 3}
       propertyPath: slowPercent
@@ -5698,20 +5943,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6760509495340484746, guid: cc3b110fac7d7f6409e8bc73328a1b6a, type: 3}
-      propertyPath: families.Array.data[1].type
+      propertyPath: families.Array.data[0].type
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6760509495340484746, guid: cc3b110fac7d7f6409e8bc73328a1b6a, type: 3}
-      propertyPath: families.Array.data[2].type
+      propertyPath: families.Array.data[1].type
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6760509495340484746, guid: cc3b110fac7d7f6409e8bc73328a1b6a, type: 3}
-      propertyPath: families.Array.data[3].type
+      propertyPath: families.Array.data[2].type
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6760509495340484746, guid: cc3b110fac7d7f6409e8bc73328a1b6a, type: 3}
-      propertyPath: families.Array.data[4].type
+      propertyPath: families.Array.data[3].type
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760509495340484746, guid: cc3b110fac7d7f6409e8bc73328a1b6a, type: 3}
+      propertyPath: families.Array.data[4].type
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6760509495340484746, guid: cc3b110fac7d7f6409e8bc73328a1b6a, type: 3}
       propertyPath: grassSpawners.Array.data[0]
@@ -5721,6 +5970,10 @@ PrefabInstance:
       propertyPath: grassSpawners.Array.data[1]
       value: 
       objectReference: {fileID: 1968681198}
+    - target: {fileID: 6760509495340484746, guid: cc3b110fac7d7f6409e8bc73328a1b6a, type: 3}
+      propertyPath: policeCarSpawner.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6760509495340484746, guid: cc3b110fac7d7f6409e8bc73328a1b6a, type: 3}
       propertyPath: familiesScores.Array.data[0]
       value: 0.5
@@ -5762,16 +6015,32 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3989076579769081979, guid: 61047654a13c64d4faf0b2ad15867916, type: 3}
     - target: {fileID: 6760509495340484746, guid: cc3b110fac7d7f6409e8bc73328a1b6a, type: 3}
+      propertyPath: policeCarSpawner.Array.data[0]
+      value: 
+      objectReference: {fileID: 1557760946}
+    - target: {fileID: 6760509495340484746, guid: cc3b110fac7d7f6409e8bc73328a1b6a, type: 3}
+      propertyPath: policeCarSpawner.Array.data[1]
+      value: 
+      objectReference: {fileID: 310427275}
+    - target: {fileID: 6760509495340484746, guid: cc3b110fac7d7f6409e8bc73328a1b6a, type: 3}
+      propertyPath: families.Array.data[0].basicDelay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760509495340484746, guid: cc3b110fac7d7f6409e8bc73328a1b6a, type: 3}
+      propertyPath: families.Array.data[1].basicDelay
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760509495340484746, guid: cc3b110fac7d7f6409e8bc73328a1b6a, type: 3}
       propertyPath: families.Array.data[2].basicDelay
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6760509495340484746, guid: cc3b110fac7d7f6409e8bc73328a1b6a, type: 3}
       propertyPath: families.Array.data[3].basicDelay
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6760509495340484746, guid: cc3b110fac7d7f6409e8bc73328a1b6a, type: 3}
       propertyPath: families.Array.data[4].basicDelay
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6760509495340484747, guid: cc3b110fac7d7f6409e8bc73328a1b6a, type: 3}
       propertyPath: m_RootOrder

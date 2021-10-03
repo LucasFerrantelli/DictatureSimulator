@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.Rendering.HighDefinition;
 using TMPro;
 
 public class GameManager : MonoBehaviour
@@ -14,6 +15,7 @@ public class GameManager : MonoBehaviour
     public float defaultTime = 100;
     public float difficulty;
     public float damageMultiplier = 1;
+    public float policeOdds = 0;
 
     public float slowDuration;
     public float slowPercent;
@@ -36,7 +38,8 @@ public class GameManager : MonoBehaviour
 
 	[Header("Families")]
 	public List<float> familiesScores;
-	public List<EnemyFamily> families;
+    public List<float> spawningAvoidance;
+    public List<EnemyFamily> families;
 
 	[Header("References")]
 	public Text hpBaseTextDisplay;
@@ -46,6 +49,9 @@ public class GameManager : MonoBehaviour
     public List<MonsterSpawner> grassSpawners;
     Camera mainCam;
     public Animator gameUIAnimator;
+    public List<GameObject> policeCarSpawner;
+    public GameObject policeCar;
+    public Light lightRef;
 
 
     [Header("Economy")]
@@ -73,7 +79,30 @@ public class GameManager : MonoBehaviour
 		Init();
         StartLawVotting();
 		mainCam = Camera.main;
-	}
+
+        
+        lightHD = lightRef.GetComponent<HDAdditionalLightData>();
+    }
+    HDAdditionalLightData lightHD;
+    void UpdateLight()
+    {
+        if(lightRef.colorTemperature > 3000)
+        {
+            lightRef.colorTemperature--;
+
+        }
+        if (lightHD.intensity > 20)
+        {
+            lightHD.intensity -= 0.02f;
+        }
+        
+    }
+
+    void ResetLight()
+    {
+        lightRef.colorTemperature = 5500;
+        lightHD.intensity = 40;
+    }
 
     public void StartLawVotting()
     {
@@ -97,11 +126,20 @@ public class GameManager : MonoBehaviour
             damageMultiplier = 0.1f;
         }
 
+        if(policeOdds < 0)
+        {
+            policeOdds = 0;
+        }
+        if(policeOdds > 2)
+        {
+            policeOdds = 2;
+        }
         
     }
 
     public void StartPreparation()
     {
+        ResetLight();
         gameUIAnimator.Play("Preparation");
         currentTime = defaultTime;
         gameState = GameState.Preparation;
@@ -126,18 +164,30 @@ public class GameManager : MonoBehaviour
 		
 	}
 
+
+
     void FixedUpdate()
     {
         if(gameState == GameState.InFight)
         {
             currentTime -= gameSpeed / 50;
+
+
+
+            UpdateLight();
+
+
+
             if (currentTime < 0 && currentEnemies.Count == 0)
             {
                 DayEnds();
             }
-        }
-        
 
+            if(UnityEngine.Random.Range(0, 1000) < policeOdds)
+            {
+                Instantiate(policeCar, policeCarSpawner[UnityEngine.Random.Range(0, 2)].transform);
+            }
+        }
     }
 
 	public void DeclareWaves ()
@@ -169,17 +219,55 @@ public class GameManager : MonoBehaviour
             for (int j = 0; j < 10; j++)
             {
                 int _rand = UnityEngine.Random.Range(0, familiesScores.Capacity);
+                if (familiesScores[_rand] == 0)
+                {
+
+                }
+                else
+                {
+                    if (0 == 1) 
+                    {
+
+                    }
+                    else
+                    {
+                        _index = _rand;
+                        break;
+                    }
+
+                }
+            }
+
+            _spawners[i].mob2 = families[_index].prefab;
+
+        }
+
+        for (int i = 0; i < _spawners.Count; i++)
+        {
+            int _index = 0;
+
+            for (int j = 0; j < 10; j++)
+            {
+                int _rand = UnityEngine.Random.Range(0, familiesScores.Capacity);
                 if(familiesScores[_rand] == 0)
                 {
                      
                 }
                 else
                 {
-                    _index =_rand; 
-                    break;
-                } 
+                    if(0 == 1) //spawningAvoidance[_rand] > 0)
+                    {
 
+                    }
+                    else
+                    {
+                        _index = _rand;
+                        break;
+                    }
+                    
+                } 
             }
+
             //print(_index);
             //int _index = _indexs[UnityEngine.Random.Range(0, _indexs.Capacity)];
             _spawners[i].mob = families[_index].prefab;
@@ -190,7 +278,10 @@ public class GameManager : MonoBehaviour
 
         }
 
-	}
+        
+        //spawningAvoidance = new List<float>();
+
+    }
 
 
     

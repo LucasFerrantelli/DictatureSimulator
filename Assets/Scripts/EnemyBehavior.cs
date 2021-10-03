@@ -21,7 +21,13 @@ public class EnemyBehavior : MonoBehaviour
     public enum Effect { Poisoned, Slowed, Flame, Ice};
     public enum State { Walking, Dead};
 
-
+    void OnMouseDown()
+    {
+        if(LawManager.Instance.allowSelfDefense)
+        {
+            TakeDamage(10);
+        }
+    }
 
 
     // Start is called before the first frame update
@@ -51,13 +57,32 @@ public class EnemyBehavior : MonoBehaviour
     float poisonRemainingDuration;
     float poisonDamage;
 
-    public void ApplyEffect()
+    public void ApplyEffect(additionalEffect effect)
     {
+        switch (effect)
+        {
+            case additionalEffect.Slow:
+                slowPercent = GameManager.Instance.slowPercent;
+                slowRemainingDuration = GameManager.Instance.slowDuration;
 
+                break;
+            case additionalEffect.Poison:
+                poisonDamage = GameManager.Instance.poisonDamage;
+                poisonRemainingDuration = GameManager.Instance.poisonDuration;
+                break;
+            case additionalEffect.Stun:
+                freezeRemainingDuration = GameManager.Instance.freezeDuration;
+
+                break;
+            default:
+                break;
+        }
     }
+
+     public enum  additionalEffect { Slow, Poison, Stun}
     
 
-    void Die()
+    public void Die()
     {
         Destroy(this.gameObject);
         GameManager.Instance.currentEnemies.Remove(this);

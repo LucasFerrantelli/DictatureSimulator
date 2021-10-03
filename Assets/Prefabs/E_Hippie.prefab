@@ -24,8 +24,12 @@ PrefabInstance:
       value: E_Hippie
       objectReference: {fileID: 0}
     - target: {fileID: 9075771834314585814, guid: ac6dea7408a0f614d8f17abdaea4c06e, type: 3}
+      propertyPath: hp
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9075771834314585814, guid: ac6dea7408a0f614d8f17abdaea4c06e, type: 3}
       propertyPath: enemyType
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9075771834314585818, guid: ac6dea7408a0f614d8f17abdaea4c06e, type: 3}
       propertyPath: m_RootOrder

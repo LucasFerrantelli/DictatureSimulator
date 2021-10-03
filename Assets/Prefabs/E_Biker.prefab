@@ -68,8 +68,16 @@ PrefabInstance:
       value: E_Biker
       objectReference: {fileID: 0}
     - target: {fileID: 3989076579769081980, guid: 61047654a13c64d4faf0b2ad15867916, type: 3}
+      propertyPath: hp
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3989076579769081980, guid: 61047654a13c64d4faf0b2ad15867916, type: 3}
       propertyPath: enemyType
-      value: 2
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3989076579769081980, guid: 61047654a13c64d4faf0b2ad15867916, type: 3}
+      propertyPath: movementspeed
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61047654a13c64d4faf0b2ad15867916, type: 3}
