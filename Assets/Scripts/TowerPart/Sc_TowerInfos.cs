@@ -9,5 +9,3 @@ public class Sc_TowerInfos : ScriptableObject
 	public Sprite towerIcon;
 	public TowerData towerBaseDatas;
 }
-
-

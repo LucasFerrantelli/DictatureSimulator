@@ -10,17 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dea3522ff74bc7040866bcdd2010945a, type: 3}
-  m_Name: Sniper
+  m_Name: Gatling
   m_EditorClassIdentifier: 
   towerName: SniperKomando
   towerDescription: 'Shootshoothardandfar but slow '
   towerIcon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   towerBaseDatas:
     price: 250
-    range: 20
-    damage: 100
+    range: 10
+    damage: 10
     numberOfTarget: 1
-    reloadTime: 0
+    reloadTime: 0.2
     annonciationTime: 0
     towerProjectileSpeed: 0
     towerDealingType: 0
+    effectToApply: 0
