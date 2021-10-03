@@ -264,7 +264,7 @@ Material:
     - _ZWrite: 0
     m_Colors:
     - Color_a62f8426e65b43c6a4333b991543b1eb: {r: 1, g: 1, b: 1, a: 0}
-    - Color_a62f8426e65b43c6a4333b991543b1eb_1: {r: 0, g: 3.499759, b: 13.454246, a: 1}
+    - Color_a62f8426e65b43c6a4333b991543b1eb_1: {r: 0, g: 12.54902, b: 47.937256, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
