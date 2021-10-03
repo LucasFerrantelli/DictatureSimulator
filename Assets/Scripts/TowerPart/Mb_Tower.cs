@@ -4,53 +4,64 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using System.Linq;
 
-public class Mb_Tower : MonoBehaviour, PopUp
+public class Mb_Tower : MonoBehaviour
 {
-
-	TowerData liveDatas;
+	public Sc_TowerInfos baseDatas;
+	public TowerData liveDatas;
 	[SerializeField] GameObject projectilePrefab;
+	public Mb_Spot mySpot;
+	//shoot part
 	float reloadTime;
 	List<EnemyBehavior> enemyInRange;
-	// Update is called once per frame
-	void Update()
-    {
-        
-    }
+
+	void Update ()
+	{
+
+	}
+
+	private void OnEnable ()
+	{
+		Init();
+	}
+
+	void Init ()
+	{
+		liveDatas = new TowerData();
+		liveDatas.damage = baseDatas.towerBaseDatas.damage;
+		liveDatas.range = baseDatas.towerBaseDatas.range;
+		liveDatas.price = baseDatas.towerBaseDatas.price;
+	}
 
 	private void FixedUpdate ()
 	{
-		
+		if (reloadTime > 0)
+			reloadTime -= Time.fixedDeltaTime;
+		else if (enemiesInRange().Length > 0)
+		{
+			Shoot();
+		}
 	}
 
-	public void DisplayPopUp ()
+	void Shoot ()
 	{
-
+		print("PEWPEW");
 	}
 
-	public void HidePopUp ()
-	{
-
-	}
-
-	RaycastHit[] enemiesInRange()
+	EnemyBehavior[] enemiesInRange ()
 	{
 		List<RaycastHit> _temp = Physics.SphereCastAll(transform.position, liveDatas.range, Vector3.zero, 7).ToList();
 		List<EnemyBehavior> _allEnemies = new List<EnemyBehavior>();
 
-		foreach(RaycastHit _hit in _temp)
+		foreach (RaycastHit _hit in _temp)
 		{
 			_allEnemies.Add(_hit.collider.GetComponent<EnemyBehavior>());
 		}
-		
-		return 
+
+		_allEnemies = _allEnemies.OrderBy(x => x.transform.position.x).ToList<EnemyBehavior>();
+		return _allEnemies.ToArray();
 	}
 }
 
-public interface PopUp
-{
-	void DisplayPopUp ();
-	void HidePopUp ();
-}
 
 [System.Serializable]
 public struct TowerData
@@ -58,7 +69,7 @@ public struct TowerData
 	public float price, range, damage, numberOfTarget;
 }
 
-public enum TowerType
+public enum TowerDamageType
 {
 	direct, aoe
 }

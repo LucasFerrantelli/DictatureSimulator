@@ -6,6 +6,7 @@ using UnityEngine;
 public class Sc_TowerInfos : ScriptableObject
 {
 	public string towerName, towerDescription;
+	public Sprite towerIcon;
 	public TowerData towerBaseDatas;
 }
 
