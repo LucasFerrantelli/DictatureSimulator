@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Enemies
+  m_Name: M_KKK_02
   m_Shader: {fileID: -6465566751694194690, guid: d505d03a5d688b843b9c489c826e8ec5, type: 3}
   m_ShaderKeywords: _ENABLE_FOG_ON_TRANSPARENT _SURFACE_TYPE_TRANSPARENT
   m_LightmapFlags: 4
@@ -27,15 +27,15 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_8c2e6a1fd7e641dcabed2e3650c12cad:
-        m_Texture: {fileID: 2800000, guid: 395701e860e7d1f4da841893e4d7c16a, type: 3}
+        m_Texture: {fileID: 2800000, guid: ef2627dfa848dbc4e864ffade8a7ecbf, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_8c5adf67db9f43d6bd18f9d3de2c437a:
-        m_Texture: {fileID: 2800000, guid: 395701e860e7d1f4da841893e4d7c16a, type: 3}
+        m_Texture: {fileID: 2800000, guid: ef2627dfa848dbc4e864ffade8a7ecbf, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_ce92d3e8dfe845189b7316570397a317:
-        m_Texture: {fileID: 2800000, guid: 395701e860e7d1f4da841893e4d7c16a, type: 3}
+        m_Texture: {fileID: 2800000, guid: ef2627dfa848dbc4e864ffade8a7ecbf, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AnisotropyMap:
