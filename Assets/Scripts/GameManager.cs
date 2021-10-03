@@ -3,106 +3,204 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
+	public static GameManager Instance;
 
     [Header ("Balancing")]
     public int baseHP;
     public float defaultTime = 100;
+    public float difficulty;
 
+    public float slowDuration;
+    public float slowPercent;
+    public float freezeDuration;
+    public float poisonDuration;
+    public float poisonDamage;
+    
+
+
+
+    public List<bool> turretsUnlocked;
+    public List<GameObject> turrets;
 
     [Header ("Settings/debug")]
-    public GameState gameState;
+    public GameState gameState = GameState.LawVoting;
     public float currentTime;
     public float gameSpeed;
+    public float mobSpeedMultiplier = 1;
+    public List<EnemyBehavior> currentEnemies;
 
-    [Header("Families")]
-    public List<float> familiesScores;
-    public List<EnemyFamily> families;
+	[Header("Families")]
+	public List<float> familiesScores;
+	public List<EnemyFamily> families;
 
-    [Header("References")]
-    public Text hpBaseTextDisplay;
-    public List<MonsterSpawner> spawners;
+	[Header("References")]
+	public Text hpBaseTextDisplay;
+    public Text moneyTextDisplay;
+    public Text timeTextDisplay;
+	public List<MonsterSpawner> spawners;
+    public List<MonsterSpawner> grassSpawners;
+    Camera mainCam;
+    public Animator gameUIAnimator;
 
+
+    [Header("Economy")]
+    public float moneyPerDay = 1000;
+	public float currentMoney = 1000;
+	public Action<float> moneyVaritation;
+	public Mb_Tower currentSelectionedTowerType;
+
+
+    public enum GameState { InFight, Preparation, LawVoting, dayEnd}
 
     [Serializable]
     public struct EnemyFamily
     {
-        public EnemyBehavior.EnemyType enemy;
         public GameObject prefab;
+        public EnemyBehavior.EnemyType type;
         public float basicDelay;
     }
 
-    public enum GameState { InFight, Preparation, LawVoting}
 
 
+	void Awake ()
+	{
+		Instance = this;
+		Init();
+        StartLawVotting();
+		mainCam = Camera.main;
+	}
 
-
-
-
-
-    // Start is called before the first frame update
-    void Awake()
+    public void StartLawVotting()
     {
-        Instance = this;
-        Init();
+        gameUIAnimator.Play("LawVotting");
+        LawManager.Instance.SetUpEventLaw(LawManager.Instance.PickRandomEvent());
+        for (int i = 0; i < familiesScores.Capacity; i++)
+        {
+            if(familiesScores[i] < 0)
+            {
+                familiesScores[i] = 0;
+            }
+            if (familiesScores[i] > 1)
+            {
+                familiesScores[i] = 1;
+            }
+
+        }
+
+        
     }
 
-    void Init()
+    public void StartPreparation()
     {
+        gameUIAnimator.Play("Preparation");
         currentTime = defaultTime;
-        //DeclareWaves();
+        gameState = GameState.Preparation;
+        moneyVaritation += AddMoney;
+        DeclareWaves();
     }
+
+    public void StartFight()
+    {
+        gameUIAnimator.Play("Combat");
+        gameState = GameState.InFight;
+    }
+
+    public void DayEnds()
+    {
+        gameState = GameState.dayEnd;
+        StartLawVotting();
+    }
+
+	void Init ()
+	{
+		
+	}
 
     void FixedUpdate()
     {
-        currentTime -= gameSpeed / 50;
-
+        if(gameState == GameState.InFight)
+        {
+            currentTime -= gameSpeed / 50;
+            if (currentTime < 0 && currentEnemies.Count == 0)
+            {
+                DayEnds();
+            }
+        }
+        
 
     }
 
+	public void DeclareWaves ()
+	{
+        List<MonsterSpawner> _spawners = spawners;
 
-    public void DeclareWaves()
-    {
-        List<int> spawnableFamilies = new List<int>();
-
-
-        for (int i = 0; i < familiesScores.Count; i++)
+        if(LawManager.Instance.grassSpawners)
         {
-
-            if (familiesScores[i] > 0)
+            foreach (var item in grassSpawners)
             {
-                spawnableFamilies.Add(0);
-
+                _spawners.Add(item);
             }
         }
 
-        List<int> _subspawnableFamilies = spawnableFamilies;
+        List<int> _indexs = new List<int>();
 
-        for (int i = 0; i < spawners.Count; i++)
+        for (int j = 0; j < familiesScores.Count; j++)
         {
-
-            spawners[i].monstersToSpawn.Capacity = familiesScores.Capacity;
-            //spawners[i].monstersToSpawn[_spawnableFamilies[0]] = true;
-            //_spawnableFamilies.Remove(0);
-
-            //if(_spawnableFamilies.Capacity == 0)
-            //{
-            //    _spawnableFamilies = spawnableFamilies;
-            //}
-            //spawners[i].Init();
+            if (familiesScores[j] > 0)
+            {
+                _indexs.Add(j);
+            }
         }
 
-    }
+        for (int i = 0; i < _spawners.Count; i++)
+        {
+            int _index = 0;
+
+            for (int j = 0; j < 10; j++)
+            {
+                int _rand = UnityEngine.Random.Range(0, familiesScores.Capacity);
+                if(familiesScores[_rand] == 0)
+                {
+                     
+                }
+                else
+                {
+                    _index =_rand; 
+                    break;
+                } 
+
+            }
+            //print(_index);
+            //int _index = _indexs[UnityEngine.Random.Range(0, _indexs.Capacity)];
+            _spawners[i].mob = families[_index].prefab;
+            _spawners[i].delayBetweenSpawn = families[_index].basicDelay;
+            _spawners[i].familyScore = familiesScores[_index];
+            _spawners[i].Init();
+            _spawners[i].associatedTelegraph.theOne = _index;
+
+        }
+
+	}
 
 
+    
+	void AddMoney(float _moneyAdded)
+	{
+		currentMoney += _moneyAdded;
+	}
 
-    // Update is called once per frame
-    void Update()
+
+	// Update is called once per frame
+	void Update()
     {
+        moneyTextDisplay.text = currentMoney.ToString();
         hpBaseTextDisplay.text = baseHP.ToString();
+        timeTextDisplay.text = currentTime.ToString();
+
     }
 }
 

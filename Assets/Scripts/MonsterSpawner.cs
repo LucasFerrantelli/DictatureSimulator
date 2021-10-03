@@ -2,44 +2,61 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class MonsterSpawner : MonoBehaviour
 {
+    public Telegraph associatedTelegraph;
+
+
     public bool spawnMonster;
 
-    public List<bool> monstersToSpawn;
-    public List<float> currentdelayBetweenSpawn;
+    public GameObject mob;
+    public float delayBetweenSpawn;
+    public float currentDelayBetweenSpawn;
+    public float familyScore;
 
    
 
     // Start is called before the first frame update
     public void Init()
     {
-        currentdelayBetweenSpawn.Capacity = GameManager.Instance.families.Capacity;
-        for (int i = 0; i < GameManager.Instance.families.Count; i++)
-        {
-            currentdelayBetweenSpawn[i] = GameManager.Instance.families[i].basicDelay;
-        }
+
+        DelayGeneration();
+
 
     }
 
     void FixedUpdate()
     {
-        for (int i = 0; i < currentdelayBetweenSpawn.Count; i++)
+        if(GameManager.Instance.gameState == GameManager.GameState.Preparation && mob != null)
         {
-            if(monstersToSpawn[i])
+            associatedTelegraph.gameObject.SetActive(true);
+        }
+        else
+        {
+            associatedTelegraph.gameObject.SetActive(false);
+        }
+
+
+        if(GameManager.Instance.currentTime > 0 && GameManager.Instance.gameState == GameManager.GameState.InFight && mob!= null)
+        {
+            currentDelayBetweenSpawn = currentDelayBetweenSpawn - 0.02f;
+            if (currentDelayBetweenSpawn <= 0)
             {
-                currentdelayBetweenSpawn[i] = currentdelayBetweenSpawn[i]-0.02f;
-                if(currentdelayBetweenSpawn[i] <= 0)
-                {
-                    for (int j = 0; j < currentdelayBetweenSpawn.Count; j++)
-                    {
-                        currentdelayBetweenSpawn[j] += 0.2f;
-                    }
-                    currentdelayBetweenSpawn[i] = (GameManager.Instance.families[i].basicDelay + GameManager.Instance.families[i].basicDelay * Random.Range(-0.5f,0.5f))
-                        * (1-GameManager.Instance.familiesScores[i]) ;
-                    Instantiate(GameManager.Instance.families[i].prefab, transform);
-                }
+                DelayGeneration();
+                Instantiate(mob, transform);
             }
+        }
+        
+    }
+
+    void DelayGeneration()
+    {
+        currentDelayBetweenSpawn = (delayBetweenSpawn + delayBetweenSpawn * Random.Range(-0.5f, 0.5f))
+                * (1 - familyScore) + (1-GameManager.Instance.difficulty/5);
+        if(currentDelayBetweenSpawn < 0.5)
+        {
+            currentDelayBetweenSpawn = 0.5f;
         }
     }
 
