@@ -24,8 +24,16 @@ PrefabInstance:
       value: E_Army
       objectReference: {fileID: 0}
     - target: {fileID: 4606928721375397221, guid: 85fc52b3e1cdf494cad6d90892513d88, type: 3}
+      propertyPath: hp
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4606928721375397221, guid: 85fc52b3e1cdf494cad6d90892513d88, type: 3}
       propertyPath: enemyType
-      value: 4
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4606928721375397221, guid: 85fc52b3e1cdf494cad6d90892513d88, type: 3}
+      propertyPath: movementspeed
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4606928721375397225, guid: 85fc52b3e1cdf494cad6d90892513d88, type: 3}
       propertyPath: m_RootOrder

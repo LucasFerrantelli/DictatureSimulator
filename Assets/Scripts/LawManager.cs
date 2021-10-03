@@ -40,6 +40,7 @@ public class LawManager : MonoBehaviour
 
     [Header("LawsRef")]
     public bool grassSpawners;
+    public bool allowSelfDefense;
     [Serializable]
     public struct LawStructure
     {
@@ -136,7 +137,8 @@ public class LawManager : MonoBehaviour
                      WalkOnGrass, CantWalkOnGrass,
                        UnlockTurret, IncreaseTurretCost, DecreaseTurretCost, 
                     IncreaseOverallDifficulty, IncreaseOverallSpeed, IncreaseDayTime,moneyIncrease, IncreaseDamageMultiplier,
-                      IncreaseFreezeDuration, IncreaseSlowDuration, IncreasePoisonDamage, IncreaseSlowAmount}
+                      IncreaseFreezeDuration, IncreaseSlowDuration, IncreasePoisonDamage, IncreaseSlowAmount,
+                        IncreasePoliceViolence, AllowSelfDefense, ForbidSelfDefense}
 
     public void ApplyLaw(LawStructure lawstruct)
     {
@@ -179,6 +181,15 @@ public class LawManager : MonoBehaviour
             case Law.IncreaseDamageMultiplier:
                 GameManager.Instance.damageMultiplier += lawstruct.value;
                 break;
+            case Law.IncreasePoliceViolence:
+                GameManager.Instance.policeOdds += lawstruct.value;
+                break;
+            case Law.AllowSelfDefense:
+                allowSelfDefense = true;
+                break;
+            case Law.ForbidSelfDefense:
+                allowSelfDefense = false;
+                break;
 
             default:
                 break;
@@ -209,9 +220,11 @@ public class LawManager : MonoBehaviour
             default:
                 break;
         }
-
+        //GameManager.Instance.spawningAvoidance = new List<float>( GameManager.Instance.familiesScores.Capacity);
+        
         GameManager.EnemyFamily _familyInst = GameManager.Instance.families[_index];
         float _familyScoreInst = GameManager.Instance.familiesScores[_index];
+        //float _familyAvoidanceInst = GameManager.Instance.spawningAvoidance[_index];
 
         switch (stat)
         {
@@ -224,10 +237,19 @@ public class LawManager : MonoBehaviour
                 break;
             case stats.score:
                 _familyScoreInst += value;
+                //if(value > 0)
+                //{
+                //    _familyAvoidanceInst = -1;
+                //}
+                //else
+                //{
+                //    _familyAvoidanceInst = 1;
+                //}
                 break;
             default:
                 break;
         }
+        //GameManager.Instance.spawningAvoidance[_index] = _familyAvoidanceInst;
         GameManager.Instance.familiesScores[_index] = _familyScoreInst;
         GameManager.Instance.families[_index] = _familyInst;
 

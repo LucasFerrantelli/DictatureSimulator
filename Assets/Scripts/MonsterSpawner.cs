@@ -11,6 +11,7 @@ public class MonsterSpawner : MonoBehaviour
     public bool spawnMonster;
 
     public GameObject mob;
+    public GameObject mob2;
     public float delayBetweenSpawn;
     public float currentDelayBetweenSpawn;
     public float familyScore;
@@ -44,7 +45,15 @@ public class MonsterSpawner : MonoBehaviour
             if (currentDelayBetweenSpawn <= 0)
             {
                 DelayGeneration();
-                Instantiate(mob, transform);
+                if(Random.Range(0f,1f) > 0.3f)
+                {
+                    Instantiate(mob, transform);
+                }
+                else
+                {
+                    Instantiate(mob2, transform);
+                }
+                
             }
         }
         
