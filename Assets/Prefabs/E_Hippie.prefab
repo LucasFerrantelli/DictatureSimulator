@@ -31,6 +31,18 @@ PrefabInstance:
       propertyPath: enemyType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9075771834314585814, guid: ac6dea7408a0f614d8f17abdaea4c06e, type: 3}
+      propertyPath: variance.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7de7160412864224586e3412bffe4645, type: 2}
+    - target: {fileID: 9075771834314585814, guid: ac6dea7408a0f614d8f17abdaea4c06e, type: 3}
+      propertyPath: variance.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: a3ae39a7b7e719c42a07dc18817c4936, type: 2}
+    - target: {fileID: 9075771834314585814, guid: ac6dea7408a0f614d8f17abdaea4c06e, type: 3}
+      propertyPath: variance.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: d1b4f605b5432ff44b02ad382f3a09c2, type: 2}
     - target: {fileID: 9075771834314585818, guid: ac6dea7408a0f614d8f17abdaea4c06e, type: 3}
       propertyPath: m_RootOrder
       value: 0

@@ -23,6 +23,18 @@ PrefabInstance:
       propertyPath: movementspeed
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 9075771834314585814, guid: ac6dea7408a0f614d8f17abdaea4c06e, type: 3}
+      propertyPath: variance.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 84d3daceb5bc80f46b6db70ecae75cb4, type: 2}
+    - target: {fileID: 9075771834314585814, guid: ac6dea7408a0f614d8f17abdaea4c06e, type: 3}
+      propertyPath: variance.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: de01661ac25fc204495a15ab6e2d51c6, type: 2}
+    - target: {fileID: 9075771834314585814, guid: ac6dea7408a0f614d8f17abdaea4c06e, type: 3}
+      propertyPath: variance.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 883a8017855dbec459834e4e0cf864a6, type: 2}
     - target: {fileID: 9075771834314585818, guid: ac6dea7408a0f614d8f17abdaea4c06e, type: 3}
       propertyPath: m_RootOrder
       value: 0
