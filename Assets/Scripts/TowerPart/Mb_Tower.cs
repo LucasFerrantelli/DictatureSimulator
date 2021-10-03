@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using System.Linq;
+using UnityEngine.Events;
 
 public class Mb_Tower : MonoBehaviour
 {
@@ -11,9 +12,10 @@ public class Mb_Tower : MonoBehaviour
 	[SerializeField] GameObject projectilePrefab;
 	public Mb_Spot mySpot;
 	//shoot part
-	float reloadTime;
 	List<EnemyBehavior> enemyInRange;
-
+	float reloadTime, annonciaitonTime;
+	bool shooting;
+	public UnityEvent shootCanalisation, shootRealisation;
 	void Update ()
 	{
 
@@ -36,20 +38,50 @@ public class Mb_Tower : MonoBehaviour
 	{
 		if (reloadTime > 0)
 			reloadTime -= Time.fixedDeltaTime;
-		else if (enemiesInRange().Length > 0)
+		else if (enemiesInRange(liveDatas.range).Length > 0)
 		{
-			Shoot();
+			StartShooting();
 		}
 	}
 
-	void Shoot ()
+	void StartShooting ()
 	{
-		print("PEWPEW");
+		if (shooting == false)
+		{
+			shootCanalisation?.Invoke();
+		}
+		shooting = true;
+
+		if (annonciaitonTime > liveDatas.annonciationTime)
+		{
+			if (liveDatas.towerDealingType == TowerDamageType.aoe)
+			{
+				foreach (EnemyBehavior _en in enemiesInRange(liveDatas.range))
+				{
+					_en.TakeDamage(liveDatas.damage);
+				}
+			}
+			else
+			{
+				//au cas ou l enemi sort de la range alors que on veut lui tirer dessus
+				EnemyBehavior[] _listOfTarget = enemiesInRange(liveDatas.range+1);
+
+				for (int i = 0; i < liveDatas.numberOfTarget; i++)
+				{
+					if (i > _listOfTarget.Length)
+						break;
+					_listOfTarget[i].TakeDamage(liveDatas.damage);
+				}
+			}
+			reloadTime = liveDatas.reloadTime;
+			shooting = false;
+
+		}
 	}
 
-	EnemyBehavior[] enemiesInRange ()
+	EnemyBehavior[] enemiesInRange (float range)
 	{
-		List<RaycastHit> _temp = Physics.SphereCastAll(transform.position, liveDatas.range, Vector3.zero, 7).ToList();
+		List<RaycastHit> _temp = Physics.SphereCastAll(transform.position, range, Vector3.zero, 7).ToList();
 		List<EnemyBehavior> _allEnemies = new List<EnemyBehavior>();
 
 		foreach (RaycastHit _hit in _temp)
@@ -66,7 +98,8 @@ public class Mb_Tower : MonoBehaviour
 [System.Serializable]
 public struct TowerData
 {
-	public float price, range, damage, numberOfTarget;
+	public float price, range, damage, numberOfTarget, reloadTime, annonciationTime, towerProjectileSpeed;
+	public TowerDamageType towerDealingType;
 }
 
 public enum TowerDamageType

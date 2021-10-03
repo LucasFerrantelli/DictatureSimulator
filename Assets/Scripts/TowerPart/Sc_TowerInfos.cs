@@ -10,3 +10,4 @@ public class Sc_TowerInfos : ScriptableObject
 	public TowerData towerBaseDatas;
 }
 
+

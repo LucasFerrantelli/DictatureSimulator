@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
         gameUIAnimator.Play("Preparation");
         currentTime = defaultTime;
         gameState = GameState.Preparation;
-        //moneyVaritation += AddMoney;
+        moneyVaritation += AddMoney;
         DeclareWaves();
     }
 
@@ -188,11 +188,14 @@ public class GameManager : MonoBehaviour
 
 
     
+	void AddMoney(float _moneyAdded)
+	{
+		currentMoney += _moneyAdded;
+	}
 
 
-
-    // Update is called once per frame
-    void Update()
+	// Update is called once per frame
+	void Update()
     {
         moneyTextDisplay.text = currentMoney.ToString();
         hpBaseTextDisplay.text = baseHP.ToString();
