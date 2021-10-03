@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour
 	[Header("References")]
 	public Text hpBaseTextDisplay;
 	public List<MonsterSpawner> spawners;
+    Camera mainCam;
 
 	[Header("Economy")]
 	public float currentMoney = 1000;
@@ -39,33 +41,47 @@ public class GameManager : MonoBehaviour
 
     public enum GameState { InFight, Preparation, LawVoting, dayEnd}
 
-	public enum GameState { InFight, Preparation, LawVoting }
+    [Serializable]
+    public struct EnemyFamily
+    {
+        public GameObject prefab;
+        public EnemyBehavior.EnemyType type;
+        public float basicDelay;
+    }
+
+
 
 	void Awake ()
 	{
 		Instance = this;
 		Init();
+        StartLawVotting();
 		mainCam = Camera.main;
 	}
 
+    void StartLawVotting()
+    {
+
+    }
+
+    void StartPreparation()
+    {
+        currentTime = defaultTime;
+        //moneyVaritation += AddMoney;
+        DeclareWaves();
+    }
+
+    void StartFight()
+    {
+        gameState = GameState.InFight;
+    }
+
 	void Init ()
 	{
-		currentTime = defaultTime;
-		moneyVaritation += AddMoney;
-		//DeclareWaves();
-	}
-
-	void FixedUpdate ()
-	{
-		currentTime -= gameSpeed / 50;
-
-
+		
 	}
 
 
-	public void DeclareWaves ()
-	{
-		List<int> spawnableFamilies = new List<int>();
 
 
     void FixedUpdate()
@@ -82,41 +98,33 @@ public class GameManager : MonoBehaviour
 
     }
 
-			}
-		}
+	public void DeclareWaves ()
+	{
+        List<int> _indexs = new List<int>();
 
-    public void DeclareWaves()
-    {
-        //List<bool> familiesToDistribued = new List<bool>();
-        //List<bool> attributedFamilies = new List<bool>();
+        for (int j = 0; j < familiesScores.Count; j++)
+        {
+            if (familiesScores[j] > 0)
+            {
+                _indexs.Add(j);
+            }
+        }
 
-		for (int i = 0; i < spawners.Count; i++)
-		{
+        for (int i = 0; i < spawners.Count; i++)
+        {
+            int _index = UnityEngine.Random.Range(0, familiesScores.Capacity); //i need to not generate any families but chose between available.
+            //int _index = _indexs[UnityEngine.Random.Range(0, _indexs.Capacity)];
+            spawners[i].mob = families[_index].prefab;
+            spawners[i].delayBetweenSpawn = families[_index].basicDelay;
+            spawners[i].familyScore = familiesScores[_index];
+            spawners[i].Init();
 
-        //for (int i = 0; i < familiesScores.Count; i++)
-        //{
+        }
 
-        //}
+	}
 
 
-        //for (int i = 0; i < spawners.Count; i++)
-        //{
-        //    for (int i = 0; i < familiesScores; i++)
-        //    {
-
-        //    }
-        //    spawners[i].monstersToSpawn.Capacity = familiesScores.Capacity;
-        //    //spawners[i].monstersToSpawn[_spawnableFamilies[0]] = true;
-        //    //_spawnableFamilies.Remove(0);
-
-        //    //if(_spawnableFamilies.Capacity == 0)
-        //    //{
-        //    //    _spawnableFamilies = spawnableFamilies;
-        //    //}
-        //    //spawners[i].Init();
-        //}
-
-    }
+    
 
 
 
