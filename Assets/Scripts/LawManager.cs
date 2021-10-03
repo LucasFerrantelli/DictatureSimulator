@@ -2,16 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using TMPro;
 
 public class LawManager : MonoBehaviour
 {
     public enum Law {EcoloIncrease, EcoloDecrease, FarRightIncrease, FarRightDecrease, IncreaseOverallDifficulty, taxeIncrease, greve}
+
+    public static LawManager Instance;
+
+    public LawEvent currentDiscussedEvent;
 
     public List<Law> currentLaws;
     [Serializable]
     public struct LawEvent
     {
         public string eventName;
+        public string eventDescription;
         public string lawOneDescription;
         public string lawTwoDescription;
         public float weight;
@@ -22,12 +28,16 @@ public class LawManager : MonoBehaviour
     }
     public List<LawEvent> lawEvents;
 
+    [Header("LawsRef")]
+    public bool grassSpawners;
+
+
+
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        print(PickRandomEvent().eventName);
-        print(PickRandomEvent().eventName);
-        print(PickRandomEvent().eventName);
+        Instance = this;
     }
 
     // Update is called once per frame
@@ -38,6 +48,7 @@ public class LawManager : MonoBehaviour
 
     public LawEvent PickRandomEvent()
     {
+        print("pick");
         float totalWeight = 0;
         for (int i = 0; i < lawEvents.Count; i++)
         {
@@ -65,6 +76,43 @@ public class LawManager : MonoBehaviour
         return lawEvents[0];
     }
 
+    public TMP_Text eventName;
+    public TMP_Text eventDescription;
+    public TMP_Text lawOneDescription;
+    public TMP_Text lawTwoDescription;
+
+    public void SetUpEventLaw(LawEvent _lawEvent)
+    {
+        currentDiscussedEvent = _lawEvent;
+        eventName.text = _lawEvent.eventName;
+        eventDescription.text = _lawEvent.eventDescription;
+        lawOneDescription.text = _lawEvent.lawOneDescription;
+        lawTwoDescription.text = _lawEvent.lawTwoDescription;
+    }
+
+    public void LawConfirm(int lawValidated)
+    {
+
+        if (lawValidated == 0)
+        {
+            ApplyAllSubLaws(currentDiscussedEvent.lawOne);
+        }
+        else
+        {
+            ApplyAllSubLaws(currentDiscussedEvent.lawTwo);
+        }
+        
+        
+
+    }
+
+    public void ApplyAllSubLaws(List<Law> _sublaws)
+    {
+        for (int i = 0; i < _sublaws.Capacity; i++)
+        {
+            ApplyLaw(_sublaws[i]);
+        }
+    }
 
     public void ApplyLaw(Law law)
     {

@@ -19,9 +19,10 @@ public class GameManager : MonoBehaviour
     public List<GameObject> turrets;
 
     [Header ("Settings/debug")]
-    public GameState gameState;
+    public GameState gameState = GameState.LawVoting;
     public float currentTime;
     public float gameSpeed;
+    public float mobSpeedMultiplier = 1;
     public List<EnemyBehavior> currentEnemies;
 
 	[Header("Families")]
@@ -30,8 +31,13 @@ public class GameManager : MonoBehaviour
 
 	[Header("References")]
 	public Text hpBaseTextDisplay;
+    public Text moneyTextDisplay;
+    public Text timeTextDisplay;
 	public List<MonsterSpawner> spawners;
+    public List<MonsterSpawner> grassSpawners;
     Camera mainCam;
+    public Animator gameUIAnimator;
+    
 
 	[Header("Economy")]
 	public float currentMoney = 1000;
@@ -59,29 +65,36 @@ public class GameManager : MonoBehaviour
 		mainCam = Camera.main;
 	}
 
-    void StartLawVotting()
+    public void StartLawVotting()
     {
-
+        gameUIAnimator.Play("LawVotting");
+        LawManager.Instance.SetUpEventLaw(LawManager.Instance.PickRandomEvent());
     }
 
-    void StartPreparation()
+    public void StartPreparation()
     {
+        gameUIAnimator.Play("Preparation");
         currentTime = defaultTime;
-        moneyVaritation += AddMoney;
+        //moneyVaritation += AddMoney;
         DeclareWaves();
     }
 
-    void StartFight()
+    public void StartFight()
     {
+        gameUIAnimator.Play("Combat");
         gameState = GameState.InFight;
+    }
+
+    public void DayEnds()
+    {
+        gameState = GameState.dayEnd;
+        StartLawVotting();
     }
 
 	void Init ()
 	{
 		
 	}
-
-
 
     void FixedUpdate()
     {
@@ -90,7 +103,7 @@ public class GameManager : MonoBehaviour
             currentTime -= gameSpeed / 50;
             if (currentTime < 0 && currentEnemies.Count == 0)
             {
-                gameState = GameState.dayEnd;
+                DayEnds();
             }
         }
         
@@ -99,6 +112,16 @@ public class GameManager : MonoBehaviour
 
 	public void DeclareWaves ()
 	{
+        List<MonsterSpawner> _spawners = spawners;
+
+        if(LawManager.Instance.grassSpawners)
+        {
+            foreach (var item in grassSpawners)
+            {
+                _spawners.Add(item);
+            }
+        }
+
         List<int> _indexs = new List<int>();
 
         for (int j = 0; j < familiesScores.Count; j++)
@@ -109,30 +132,30 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < spawners.Count; i++)
+        for (int i = 0; i < _spawners.Count; i++)
         {
             int _index = UnityEngine.Random.Range(0, familiesScores.Capacity); //i need to not generate any families but chose between available.
             //int _index = _indexs[UnityEngine.Random.Range(0, _indexs.Capacity)];
-            spawners[i].mob = families[_index].prefab;
-            spawners[i].delayBetweenSpawn = families[_index].basicDelay;
-            spawners[i].familyScore = familiesScores[_index];
-            spawners[i].Init();
+            _spawners[i].mob = families[_index].prefab;
+            _spawners[i].delayBetweenSpawn = families[_index].basicDelay;
+            _spawners[i].familyScore = familiesScores[_index];
+            _spawners[i].Init();
 
         }
 
 	}
 
-	public void AddMoney ( float _moneyVariation )
-	{
-		currentMoney += _moneyVariation;
-	}
+
+    
 
 
 
-	// Update is called once per frame
-	void Update ()
+    // Update is called once per frame
+    void Update()
     {
+        moneyTextDisplay.text = currentMoney.ToString();
         hpBaseTextDisplay.text = baseHP.ToString();
+        timeTextDisplay.text = currentTime.ToString();
     }
 }
 

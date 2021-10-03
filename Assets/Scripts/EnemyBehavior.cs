@@ -19,7 +19,7 @@ public class EnemyBehavior : MonoBehaviour
     public float speedAdditioner;
 
     //Enum declarations
-    public enum EnemyType { Grunge, Hippie, Biker};
+    public enum EnemyType { Hippie, KKK, Biker, Nudist, Army};
     public enum Effect { Poisoned, Slowed, Flame, Ice};
     public enum State { Walking, Dead};
 
@@ -58,7 +58,7 @@ public class EnemyBehavior : MonoBehaviour
 
     void FixedUpdate()
     {
-        transform.position += new Vector3(0, 0, movementspeed/50);
+        transform.position += new Vector3(0, 0, GameManager.Instance.mobSpeedMultiplier * movementspeed/50);
         
     }
 
