@@ -6,8 +6,7 @@ using TMPro;
 
 public class LawManager : MonoBehaviour
 {
-    [Multiline]
-    public string test;
+
 
     public static LawManager Instance;
 
