@@ -14,6 +14,14 @@ public class GameManager : MonoBehaviour
     public float defaultTime = 100;
     public float difficulty;
 
+    public float slowDuration;
+    public float slowPercent;
+    public float freezeDuration;
+    public float poisonDuration;
+    public float poisonDamage;
+    
+
+
 
     public List<bool> turretsUnlocked;
     public List<GameObject> turrets;
@@ -37,9 +45,10 @@ public class GameManager : MonoBehaviour
     public List<MonsterSpawner> grassSpawners;
     Camera mainCam;
     public Animator gameUIAnimator;
-    
 
-	[Header("Economy")]
+
+    [Header("Economy")]
+    public float moneyPerDay = 1000;
 	public float currentMoney = 1000;
 	public Action<float> moneyVaritation;
 	public Mb_Tower currentSelectionedTowerType;
@@ -69,12 +78,27 @@ public class GameManager : MonoBehaviour
     {
         gameUIAnimator.Play("LawVotting");
         LawManager.Instance.SetUpEventLaw(LawManager.Instance.PickRandomEvent());
+        for (int i = 0; i < familiesScores.Capacity; i++)
+        {
+            if(familiesScores[i] < 0)
+            {
+                familiesScores[i] = 0;
+            }
+            if (familiesScores[i] > 1)
+            {
+                familiesScores[i] = 1;
+            }
+
+        }
+
+        
     }
 
     public void StartPreparation()
     {
         gameUIAnimator.Play("Preparation");
         currentTime = defaultTime;
+        gameState = GameState.Preparation;
         //moneyVaritation += AddMoney;
         DeclareWaves();
     }
@@ -134,12 +158,29 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < _spawners.Count; i++)
         {
-            int _index = UnityEngine.Random.Range(0, familiesScores.Capacity); //i need to not generate any families but chose between available.
+            int _index = 0;
+
+            for (int j = 0; j < 10; j++)
+            {
+                int _rand = UnityEngine.Random.Range(0, familiesScores.Capacity);
+                if(familiesScores[_rand] == 0)
+                {
+                     
+                }
+                else
+                {
+                    _index =_rand; 
+                    break;
+                } 
+
+            }
+            //print(_index);
             //int _index = _indexs[UnityEngine.Random.Range(0, _indexs.Capacity)];
             _spawners[i].mob = families[_index].prefab;
             _spawners[i].delayBetweenSpawn = families[_index].basicDelay;
             _spawners[i].familyScore = familiesScores[_index];
             _spawners[i].Init();
+            _spawners[i].associatedTelegraph.theOne = _index;
 
         }
 
@@ -156,6 +197,7 @@ public class GameManager : MonoBehaviour
         moneyTextDisplay.text = currentMoney.ToString();
         hpBaseTextDisplay.text = baseHP.ToString();
         timeTextDisplay.text = currentTime.ToString();
+
     }
 }
 

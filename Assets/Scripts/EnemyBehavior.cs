@@ -13,13 +13,11 @@ public class EnemyBehavior : MonoBehaviour
     public State state;
 
     [Header("Modifiers")]
-    public float hpMultiplier;
     public float hpAdded;
-    public float speedMultiplier;
     public float speedAdditioner;
 
     //Enum declarations
-    public enum EnemyType { Hippie, KKK, Biker, Nudist, Army};
+    public enum EnemyType {None, Hippie, KKK, Biker, Nudist, Army};
     public enum Effect { Poisoned, Slowed, Flame, Ice};
     public enum State { Walking, Dead};
 
@@ -30,6 +28,12 @@ public class EnemyBehavior : MonoBehaviour
     void Start()
     {
         GameManager.Instance.currentEnemies.Add(this);
+        movementspeed += speedAdditioner;
+        hp += hpAdded;
+        if(movementspeed < 1)
+        {
+            movementspeed = 1;
+        }
     }
 
     public void TakeDamage(float damage)
@@ -39,7 +43,18 @@ public class EnemyBehavior : MonoBehaviour
         {
             Die();
         }
-    } 
+    }
+
+    float slowRemainingDuration;
+    float slowPercent;
+    float freezeRemainingDuration;
+    float poisonRemainingDuration;
+    float poisonDamage;
+
+    public void ApplyEffect()
+    {
+
+    }
     
 
     void Die()
@@ -58,7 +73,15 @@ public class EnemyBehavior : MonoBehaviour
 
     void FixedUpdate()
     {
-        transform.position += new Vector3(0, 0, GameManager.Instance.mobSpeedMultiplier * movementspeed/50);
+        poisonRemainingDuration -= 0.02f;
+        freezeRemainingDuration -= 0.02f;
+        slowRemainingDuration -= 0.02f;
+
+        if (poisonRemainingDuration >= 0)
+            TakeDamage(poisonDamage);
+
+        if (freezeRemainingDuration <= 0)
+            transform.position += new Vector3(0, 0, ( 1-slowPercent) * GameManager.Instance.mobSpeedMultiplier * movementspeed/50);
         
     }
 

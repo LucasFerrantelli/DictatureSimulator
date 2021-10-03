@@ -6,32 +6,49 @@ using TMPro;
 
 public class LawManager : MonoBehaviour
 {
-    public enum Law {EcoloIncrease, EcoloDecrease, FarRightIncrease, FarRightDecrease, IncreaseOverallDifficulty, taxeIncrease, greve}
+    [Multiline]
+    public string test;
 
     public static LawManager Instance;
 
     public LawEvent currentDiscussedEvent;
 
-    public List<Law> currentLaws;
+    public List<LawStructure> currentLaws;
     [Serializable]
-    public struct LawEvent
+    public class LawEvent
     {
+        [Serializable]
+        public class UnfoldingLawEvent
+        {
         public string eventName;
+        [Multiline]
         public string eventDescription;
+        [Multiline]
         public string lawOneDescription;
+        [Multiline]
         public string lawTwoDescription;
         public float weight;
         public bool once;
-        public List<Law> lawOne;
-        public List<Law> lawTwo;
+
+        }
+        public UnfoldingLawEvent unfold;
+        public List<LawStructure> lawOne;
+        public List<LawStructure> lawTwo;
 
     }
     public List<LawEvent> lawEvents;
 
     [Header("LawsRef")]
     public bool grassSpawners;
-
-
+    [Serializable]
+    public struct LawStructure
+    {
+        public Law law;
+        [Header("If Applicable")]
+        public EnemyBehavior.EnemyType enemy;
+        public stats stat;
+        public float value;
+    }
 
 
     // Start is called before the first frame update
@@ -52,20 +69,20 @@ public class LawManager : MonoBehaviour
         float totalWeight = 0;
         for (int i = 0; i < lawEvents.Count; i++)
         {
-            totalWeight += lawEvents[i].weight;
+            totalWeight += lawEvents[i].unfold.weight;
         }
         float _random = 0;
         _random = UnityEngine.Random.Range(0, totalWeight);
         for (int i = 0; i < lawEvents.Count; i++)
         {
-            _random -= lawEvents[i].weight;
+            _random -= lawEvents[i].unfold.weight;
             if(_random <= 0)
             {
 
-                if (lawEvents[i].once == true)
+                if (lawEvents[i].unfold.once == true)
                 {
                     LawEvent _lawEvent = lawEvents[i];
-                    _lawEvent.weight = 0;
+                    _lawEvent.unfold.weight = 0;
                     lawEvents[i] = _lawEvent;
                 }
 
@@ -84,10 +101,10 @@ public class LawManager : MonoBehaviour
     public void SetUpEventLaw(LawEvent _lawEvent)
     {
         currentDiscussedEvent = _lawEvent;
-        eventName.text = _lawEvent.eventName;
-        eventDescription.text = _lawEvent.eventDescription;
-        lawOneDescription.text = _lawEvent.lawOneDescription;
-        lawTwoDescription.text = _lawEvent.lawTwoDescription;
+        eventName.text = _lawEvent.unfold.eventName;
+        eventDescription.text = _lawEvent.unfold.eventDescription;
+        lawOneDescription.text = _lawEvent.unfold.lawOneDescription;
+        lawTwoDescription.text = _lawEvent.unfold.lawTwoDescription;
     }
 
     public void LawConfirm(int lawValidated)
@@ -106,38 +123,117 @@ public class LawManager : MonoBehaviour
 
     }
 
-    public void ApplyAllSubLaws(List<Law> _sublaws)
+
+    public void ApplyAllSubLaws(List<LawStructure> _sublawsStructs)
     {
-        for (int i = 0; i < _sublaws.Capacity; i++)
+        for (int i = 0; i < _sublawsStructs.Capacity; i++)
         {
-            ApplyLaw(_sublaws[i]);
+            ApplyLaw(_sublawsStructs[i]);
         }
     }
 
-    public void ApplyLaw(Law law)
+    public enum Law { IncreaseFamilyStat,
+                     WalkOnGrass, CantWalkOnGrass,
+                       UnlockTurret, IncreaseTurretCost, DecreaseTurretCost, 
+                    IncreaseOverallDifficulty, IncreaseOverallSpeed, IncreaseDayTime,moneyIncrease,
+                      IncreaseFreezeDuration, IncreaseSlowDuration, IncreasePoisonDamage, IncreaseSlowAmount}
+
+    public void ApplyLaw(LawStructure lawstruct)
     {
-        switch (law)
+        switch (lawstruct.law)
         {
-            case Law.EcoloIncrease:
-                GameManager.Instance.familiesScores[0] += 0.2f;
+            case Law.IncreaseFamilyStat:
+                IncreaseMobFamilyStat(lawstruct.enemy, lawstruct.stat, lawstruct.value);
+                break;         
+            case Law.moneyIncrease:
+                GameManager.Instance.moneyPerDay += lawstruct.value;
                 break;
-            case Law.EcoloDecrease:
-                GameManager.Instance.familiesScores[0] -= 0.15f;
+            case Law.IncreaseOverallDifficulty:
+                GameManager.Instance.difficulty += lawstruct.value;
                 break;
-               
-            case Law.taxeIncrease:
+            case Law.IncreaseOverallSpeed:
+                GameManager.Instance.gameSpeed += lawstruct.value;
                 break;
-            case Law.greve:
+            case Law.IncreaseDayTime:
+                GameManager.Instance.defaultTime += lawstruct.value;
                 break;
+            case Law.IncreaseFreezeDuration:
+                GameManager.Instance.freezeDuration += lawstruct.value;
+                break;
+            case Law.IncreaseSlowDuration:
+                GameManager.Instance.slowDuration += lawstruct.value;
+                break;
+            case Law.IncreasePoisonDamage:
+                GameManager.Instance.poisonDamage += lawstruct.value;
+                break;
+            case Law.IncreaseSlowAmount:
+                GameManager.Instance.slowPercent += lawstruct.value;
+                break;
+            case Law.WalkOnGrass:
+                grassSpawners = true;
+                break;
+            case Law.CantWalkOnGrass:
+                grassSpawners = false;
+                break;
+
             default:
                 break;
         }
     }
 
-    void IncreaseMobFamilyStat()
+    void IncreaseMobFamilyStat(EnemyBehavior.EnemyType _enemyType, stats stat, float value)
     {
+        int _index = 0;
+
+        switch (_enemyType)
+        {
+            case EnemyBehavior.EnemyType.Hippie:
+                _index = 0;
+                break;
+            case EnemyBehavior.EnemyType.KKK:
+                _index = 1;
+                break;
+            case EnemyBehavior.EnemyType.Biker:
+                _index = 2;
+                break;
+            case EnemyBehavior.EnemyType.Nudist:
+                _index = 3;
+                break;
+            case EnemyBehavior.EnemyType.Army:
+                _index = 4;
+                break;
+            default:
+                break;
+        }
+
+        GameManager.EnemyFamily _familyInst = GameManager.Instance.families[_index];
+        float _familyScoreInst = GameManager.Instance.familiesScores[_index];
+
+        switch (stat)
+        {
+            case stats.hp:
+                _familyInst.prefab.GetComponent<EnemyBehavior>().hpAdded += value;
+                
+                break;
+            case stats.speed:
+                _familyInst.prefab.GetComponent<EnemyBehavior>().speedAdditioner += value;
+                break;
+            case stats.score:
+                _familyScoreInst += value;
+                break;
+            default:
+                break;
+        }
+        GameManager.Instance.familiesScores[_index] = _familyScoreInst;
+        GameManager.Instance.families[_index] = _familyInst;
+
 
     }
+}
+
+public enum stats
+{
+    none,hp, speed, score
 }
 
 
