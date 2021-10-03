@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1148471544217186701, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 1567428296321529054, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -57,7 +61,27 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 383cb1cb8015bb347b1edb994cf5618a, type: 2}
     - target: {fileID: 1567428296321529059, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
       propertyPath: m_Name
-      value: Electric Variant
+      value: LanceFlamme
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355140466593470777, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.725345
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355140466593470777, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355140466593470777, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.6883856
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355140466593470777, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355140466593470777, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 87.005
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
