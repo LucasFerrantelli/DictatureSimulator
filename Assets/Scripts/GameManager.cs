@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
 	public float mobSpeedMultiplier = 1;
 	public List<EnemyBehavior> currentEnemies;
 	public bool raining;
+	public float rainProbability;
 	public float solarMultiplier = 1;
 	public int day = 1;
 
@@ -142,6 +143,8 @@ public class GameManager : MonoBehaviour
 
 	public void StartLawVotting ()
 	{
+		raining = false;
+		ResetLight();
 		day++;
 		CameraHandler.Instance.GetComponent<Animator>().Play("LawVotting");
 		gameUIAnimator.Play("LawVotting");
@@ -177,6 +180,14 @@ public class GameManager : MonoBehaviour
 
 	public void StartPreparation ()
 	{
+		if(UnityEngine.Random.Range(0,1f) < rainProbability)
+        {
+			raining = true;
+        }
+		else
+        {
+			raining = false;
+        }
 		CameraHandler.Instance.GetComponent<Animator>().Play("DefaultGame");
 		ResetLight();
 		gameUIAnimator.Play("Preparation");

@@ -48,6 +48,7 @@ public class LawManager : MonoBehaviour
         public EnemyBehavior.EnemyType enemy;
         public stats stat;
         public float value;
+        public int elementIndex;
     }
 
 
@@ -134,7 +135,7 @@ public class LawManager : MonoBehaviour
 
     public enum Law { IncreaseFamilyStat,
                      WalkOnGrass, CantWalkOnGrass,
-                       UnlockTurret, LockTurret, 
+                       UnlockTurret, LockTurret, IncreaseTurretStat,
                     IncreaseOverallDifficulty, IncreaseOverallSpeed, IncreaseDayTime,moneyIncrease, IncreaseDamageMultiplier,
                       IncreaseFreezeDuration, IncreaseSlowDuration, IncreasePoisonDamage, IncreaseSlowAmount,
                         IncreasePoliceViolence, AllowSelfDefense, ForbidSelfDefense,
@@ -191,15 +192,39 @@ public class LawManager : MonoBehaviour
                 allowSelfDefense = false;
                 break;
             case Law.LockTurret:
-                GameManager.Instance.turrets[Mathf.RoundToInt(lawstruct.value)].SetActive(false);
+                GameManager.Instance.turrets[lawstruct.elementIndex].SetActive(false);
                 break;
             case Law.UnlockTurret:
-                GameManager.Instance.turrets[Mathf.RoundToInt(lawstruct.value)].SetActive(true);
+                GameManager.Instance.turrets[lawstruct.elementIndex].SetActive(true);
+                break;
+            case Law.IncreaseTurretStat:
+                IncreaseTurretStat(lawstruct.elementIndex, lawstruct.value, lawstruct.stat);
                 break;
             default:
                 break;
         }
     }
+    void IncreaseTurretStat(int _index, float _value, stats _stat)
+    {
+        switch (_stat)
+        {
+            case stats.none:
+                break;
+            case stats.price:
+                GameManager.Instance.prefabTurrets[_index].liveDatas.price += _value;
+                break;
+
+            case stats.range:
+                GameManager.Instance.prefabTurrets[_index].liveDatas.range += _value;
+                break;
+            case stats.damage:
+                GameManager.Instance.prefabTurrets[_index].liveDatas.damage += _value;
+                break;
+            default:
+                break;
+        }
+    }
+
 
     void IncreaseMobFamilyStat(EnemyBehavior.EnemyType _enemyType, stats stat, float value)
     {
@@ -264,7 +289,7 @@ public class LawManager : MonoBehaviour
 
 public enum stats
 {
-    none,hp, speed, score
+    none,hp, speed, score, price, range, damage
 }
 
 
