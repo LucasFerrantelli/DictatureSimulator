@@ -255,11 +255,12 @@ public class Mb_Tower : MonoBehaviour
         Gizmos.DrawSphere(transform.position, liveDatas.range);
     }
 
-    private void OnMouseOver()
+    public void ShowSellButton()
     {
         buttonSell.SetActive(true);
     }
-    private void OnMouseExit()
+
+    public void HideSellButton()
     {
         buttonSell.SetActive(false);
     }
