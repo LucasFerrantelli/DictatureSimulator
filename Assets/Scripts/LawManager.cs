@@ -203,6 +203,7 @@ public class LawManager : MonoBehaviour
             default:
                 break;
         }
+
     }
     void IncreaseTurretStat(int _index, float _value, stats _stat)
     {

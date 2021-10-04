@@ -18,7 +18,7 @@ MonoBehaviour:
   towerBaseDatas:
     price: 250
     range: 10
-    damage: 100
+    damage: 1
     numberOfTarget: 1
     reloadTime: 0.5
     annonciationTime: 0.2

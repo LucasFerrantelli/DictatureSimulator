@@ -59,7 +59,8 @@ public class GameManager : MonoBehaviour
 	public float moneyPerDay = 1000;
 	public float currentMoney = 1000;
 	public Action<float> moneyVaritation;
-	[HideInInspector]public Mb_Tower currentSelectionedTowerType;
+	public Action lawsAreApplied;
+	[HideInInspector] public Mb_Tower currentSelectionedTowerType;
 
 	//unlock and tower part
 	public List<GameObject> turrets;
@@ -80,7 +81,7 @@ public class GameManager : MonoBehaviour
 
 
 
-	void Awake ()
+	void Awake()
 	{
 		Instance = this;
 		Init();
@@ -88,14 +89,19 @@ public class GameManager : MonoBehaviour
 		mainCam = Camera.main;
 		gameState = GameState.gameIntro;
 		CameraHandler.Instance.GetComponent<Animator>().Play("Intro");
+		moneyVaritation += AddMoney;
 
 		lightHD = lightRef.GetComponent<HDAdditionalLightData>();
+	}
+	public void OnDisable()
+	{
+		moneyVaritation -= AddMoney;
 	}
 
 
 
 	HDAdditionalLightData lightHD;
-	void UpdateLight ()
+	void UpdateLight()
 	{
 		if (raining)
 		{
@@ -126,7 +132,7 @@ public class GameManager : MonoBehaviour
 
 	}
 
-	void ResetLight ()
+	void ResetLight()
 	{
 		if (!raining)
 		{
@@ -141,7 +147,7 @@ public class GameManager : MonoBehaviour
 
 	}
 
-	public void StartLawVotting ()
+	public void StartLawVotting()
 	{
 		raining = false;
 		ResetLight();
@@ -178,45 +184,49 @@ public class GameManager : MonoBehaviour
 
 	}
 
-	public void StartPreparation ()
+	public void StartPreparation()
 	{
-		if(UnityEngine.Random.Range(0,1f) < rainProbability)
-        {
+		if (UnityEngine.Random.Range(0, 1f) < rainProbability)
+		{
 			raining = true;
-        }
+		}
 		else
-        {
+		{
 			raining = false;
-        }
+		}
+
 		CameraHandler.Instance.GetComponent<Animator>().Play("DefaultGame");
 		ResetLight();
 		gameUIAnimator.Play("Preparation");
 		currentTime = defaultTime;
 		gameState = GameState.Preparation;
-		currentMoney += moneyPerDay;
-		moneyVaritation += AddMoney;
+
+		moneyVaritation?.Invoke(moneyPerDay);
+		GameManager.Instance.lawsAreApplied?.Invoke();
+
 		DeclareWaves();
 	}
 
-	public void StartFight ()
+	
+	public void StartFight()
 	{
 		gameUIAnimator.Play("Combat");
 		gameState = GameState.InFight;
 	}
 
-	public void DayEnds ()
+	public void DayEnds()
 	{
 		gameState = GameState.dayEnd;
 		StartLawVotting();
 	}
 
-	void Init ()
+	void Init()
 	{
 
 	}
 
 	void NexusLost()
-    {
+	{
 		mobSpeedMultiplier = 0;
 		gameState = GameState.defeat;
 		CameraHandler.Instance.GetComponent<Animator>().Play("NexusLost");
@@ -226,22 +236,17 @@ public class GameManager : MonoBehaviour
 	}
 
 
-	void FixedUpdate ()
+	void FixedUpdate()
 	{
-		if(baseHP ==0)
-        {
+		if (baseHP == 0)
+		{
 			NexusLost();
-        }
+		}
 		if (gameState == GameState.InFight)
 		{
 			currentTime -= gameSpeed / 50;
 
-			
-
-
 			UpdateLight();
-
-
 
 			if (currentTime < 0 && currentEnemies.Count == 0)
 			{
@@ -257,7 +262,7 @@ public class GameManager : MonoBehaviour
 
 	}
 
-	public void DeclareWaves ()
+	public void DeclareWaves()
 	{
 		List<MonsterSpawner> _spawners = spawners;
 
@@ -352,24 +357,24 @@ public class GameManager : MonoBehaviour
 
 
 
-	void AddMoney ( float _moneyAdded )
+	void AddMoney(float _moneyAdded)
 	{
 		currentMoney += _moneyAdded;
+		moneyTextDisplay.text = currentMoney.ToString();
 	}
 
 
 	// Update is called once per frame
-	void Update ()
+	void Update()
 	{
 		dayTextDisplay.text = "DAY " + day.ToString();
-		moneyTextDisplay.text = currentMoney.ToString();
 		hpBaseTextDisplay.text = baseHP.ToString() + " / 50";
 		timeTextDisplay.text = currentTime.ToString();
 		if (Input.GetKeyDown(KeyCode.Mouse0))
 			RayForInterraction();
 
-		if(gameState== GameState.gameIntro)
-        {
+		if (gameState == GameState.gameIntro)
+		{
 			if (Input.anyKey)
 			{
 				StartPreparation();
@@ -382,7 +387,7 @@ public class GameManager : MonoBehaviour
 
 	}
 
-	void RayForInterraction ()
+	void RayForInterraction()
 	{
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		RaycastHit hit;
@@ -392,6 +397,9 @@ public class GameManager : MonoBehaviour
 			hit.collider.GetComponent<Interactible>().Interract();
 		}
 	}
+
+	public void NotEnoughMoneyFeedback()
+	{
+
+	}
 }
-
-

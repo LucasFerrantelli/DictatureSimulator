@@ -18,8 +18,8 @@ MonoBehaviour:
   towerBaseDatas:
     price: 400
     range: 10
-    damage: 4
-    numberOfTarget: 5
+    damage: 1
+    numberOfTarget: 3
     reloadTime: 0
     annonciationTime: 0.4
     towerProjectileSpeed: 0
