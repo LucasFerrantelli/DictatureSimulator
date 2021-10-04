@@ -75,7 +75,11 @@ public class EnemyBehavior : MonoBehaviour
         }
         else
         {
-            transform.position += new Vector3(0, 0, -0.1f);
+            frameWithoutBeingHurt = 0;
+            if(frameWithoutBeingHurt > 50)
+            {
+                transform.position += new Vector3(0, 0, -0.1f);
+            }
             GetComponentInChildren<Animator>().Play("Hurt");
         }
     }
@@ -145,8 +149,10 @@ public class EnemyBehavior : MonoBehaviour
 
     bool isAlive = true;
 
+    int frameWithoutBeingHurt;
     void FixedUpdate()
     {
+        frameWithoutBeingHurt++;
         if(isAlive)
         {
             poisonRemainingDuration -= 0.02f;

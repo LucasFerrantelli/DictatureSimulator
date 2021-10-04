@@ -17,11 +17,11 @@ MonoBehaviour:
   towerIcon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   towerBaseDatas:
     price: 500
-    range: 10
+    range: 3
     damage: 1
     numberOfTarget: 1
     reloadTime: 0
-    annonciationTime: 0.2
+    annonciationTime: 0
     towerProjectileSpeed: 0
     towerDealingType: 2
     effectToApply: 0

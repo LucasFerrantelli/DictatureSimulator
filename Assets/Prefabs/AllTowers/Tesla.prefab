@@ -63,6 +63,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tesla
       objectReference: {fileID: 0}
+    - target: {fileID: 2334614945122421952, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0056
+      objectReference: {fileID: 0}
+    - target: {fileID: 2334614945122421952, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.0134
+      objectReference: {fileID: 0}
+    - target: {fileID: 2334614945122421952, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.1072
+      objectReference: {fileID: 0}
     - target: {fileID: 2820735998127809742, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
       propertyPath: m_IsActive
       value: 0

@@ -69,6 +69,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9497fe95bd19d1249b01f09bb1f8fb34, type: 3}
+--- !u!95 &36399369338669584 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1534454852064696368, guid: 9497fe95bd19d1249b01f09bb1f8fb34, type: 3}
+  m_PrefabInstance: {fileID: 1570115275864019488}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4804152945513909101
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -121,9 +126,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1567428296321529058, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 36399369338669584}
+    - target: {fileID: 1567428296321529058, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
       propertyPath: baseDatas
       value: 
       objectReference: {fileID: 11400000, guid: 6871a133a659ea34896b95e52481460b, type: 2}
+    - target: {fileID: 1567428296321529058, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 2589995554227428451, guid: d820dd29e8414eb47af79fef9c17802e, type: 3}
     - target: {fileID: 1567428296321529059, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
       propertyPath: m_Name
       value: Poison

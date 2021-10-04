@@ -17,7 +17,7 @@ MonoBehaviour:
   towerIcon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   towerBaseDatas:
     price: 400
-    range: 20
+    range: 10
     damage: 50
     numberOfTarget: 1
     reloadTime: 1.2

@@ -20,6 +20,13 @@ public class Mb_Tower : MonoBehaviour
 	public Animator anim;
 	public Transform pivot;
 	public GameObject damageFx;
+	public GameObject canon;
+
+	public GameObject setActiveWhenAttacking;
+
+	public bool allowAttackCancel = true;
+
+	//public ParticleSystem additionalParticles;
 	private void OnEnable ()
 	{
 		Init();
@@ -40,13 +47,28 @@ public class Mb_Tower : MonoBehaviour
 		annonciationTime = liveDatas.annonciationTime;
 	}
 
+
+	int frameWithoutAttacking;
 	private void FixedUpdate ()
 	{
 		if (reloadTime > 0)
+        {
 			reloadTime -= Time.fixedDeltaTime;
+			
+		}
 		else if (enemiesInRange(liveDatas.range).Length > 0 && !shooting)
 		{
 			StartShooting();
+			
+		}
+		else if(enemiesInRange(liveDatas.range).Length == 0)
+        {
+			frameWithoutAttacking--;
+			if(frameWithoutAttacking < 20)
+            {
+				
+			}
+			
 		}
 
 		if (shooting && annonciationTime > 0)
@@ -57,19 +79,42 @@ public class Mb_Tower : MonoBehaviour
 		{
 			Shoot();
 		}
+
+		if (anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+		{
+            if(setActiveWhenAttacking != null)
+				setActiveWhenAttacking.SetActive(false);
+		}
+		else
+        {
+			if(setActiveWhenAttacking != null)
+			if (!setActiveWhenAttacking.activeInHierarchy )
+				setActiveWhenAttacking.SetActive(true);
+			
+		}
+	
 	}
 
 	void StartShooting ()
 	{
 		shootCanalisation?.Invoke();
-		anim.SetTrigger("Shoot");
+		
+		
+		//anim.SetTrigger("Shoot");
 		shooting = true;
 	}
 
 	void Shoot ()
 	{
 		shooting = false;
-
+		if(allowAttackCancel)
+        {
+			anim.Play("Attack", -1, 0f);
+        }
+        else
+        {
+			anim.Play("Attack");
+		}
 		reloadTime = liveDatas.reloadTime;
 		annonciationTime = liveDatas.annonciationTime;
 
@@ -130,7 +175,7 @@ public class Mb_Tower : MonoBehaviour
 
 			if (_listOfTarget.Count > 0)
 			{
-				pivot.LookAt(new Vector3(_listOfTarget[0].transform.position.x, transform.position.y, _listOfTarget[0].transform.position.z));
+				
 			}
 			else
 				return;
@@ -142,27 +187,30 @@ public class Mb_Tower : MonoBehaviour
 					break;
 
 				//Impact
-				GameObject _proj = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-				_proj.transform.DOMove(_listOfTarget[i].transform.position, .1f).OnComplete(() =>
-				Instantiate(damageFx, _listOfTarget[i].transform.position, Quaternion.identity));
-				
+				GameObject _proj = Instantiate(projectilePrefab, canon.transform.position, Quaternion.identity);
+				pivot.LookAt(new Vector3(_listOfTarget[0].transform.position.x, pivot.transform.position.y, _listOfTarget[0].transform.position.z));
+				print(_listOfTarget[0].transform.position);
+
+				//_proj.transform.DOMove(_listOfTarget[i].transform.position, .1f).OnComplete(() =>
+				//Instantiate(damageFx, _listOfTarget[i].transform.position, Quaternion.identity));
 				//damages
-				_listOfTarget[i].TakeDamage(liveDatas.damage); ;
 				_listOfTarget[i].ApplyEffect(liveDatas.effectToApply);
+				_listOfTarget[i].TakeDamage(liveDatas.damage) ;
 			}
 		}
 		else
 		{
-			EnemyBehavior[] _listOfTargetFlame = enemiesInRange(liveDatas.range + 1, typeOfAoe.flame);
+			EnemyBehavior[] _listOfTargetFlame = enemiesInRange(liveDatas.range, typeOfAoe.flame);
 			if (_listOfTargetFlame.Length > 0)
 			{
 				pivot.LookAt(new Vector3(_listOfTargetFlame[0].transform.position.x, transform.position.y, _listOfTargetFlame[0].transform.position.z));
 
 				foreach (EnemyBehavior _en in _listOfTargetFlame)
 				{
+
 					_en.TakeDamage(liveDatas.damage);
 					_en.ApplyEffect(liveDatas.effectToApply);
-					anim.transform.LookAt(_en.transform);
+					//anim.transform.LookAt(_en.transform);
 				}
 			}
 		}
@@ -177,7 +225,7 @@ public class Mb_Tower : MonoBehaviour
 		if (_aoeType == typeOfAoe.classic)
 			_temp = Physics.OverlapSphere(transform.position, range, 1 << 7).ToList();
 		else
-			_temp = Physics.OverlapCapsule(transform.position, transform.position + pivot.forward * liveDatas.range, 4, 1 << 7).ToList();
+			_temp = Physics.OverlapCapsule(transform.position, transform.position + pivot.forward * liveDatas.range, 3, 1 << 7).ToList();
 
 		List<EnemyBehavior> _allEnemies = new List<EnemyBehavior>();
 		foreach (Collider _hit in _temp)

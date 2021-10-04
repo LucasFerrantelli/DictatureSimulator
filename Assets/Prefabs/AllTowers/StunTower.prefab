@@ -59,6 +59,10 @@ PrefabInstance:
       propertyPath: baseDatas
       value: 
       objectReference: {fileID: 11400000, guid: 64079453871e1c946b54dc42a51d372c, type: 2}
+    - target: {fileID: 1567428296321529058, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 3030692083113629920, guid: bc4c7addb9cd02a498ac8628a5eb29ab, type: 3}
     - target: {fileID: 1567428296321529059, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
       propertyPath: m_Name
       value: StunTower

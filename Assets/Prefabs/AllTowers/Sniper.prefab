@@ -133,9 +133,21 @@ PrefabInstance:
       propertyPath: baseDatas
       value: 
       objectReference: {fileID: 11400000, guid: 7f6d0ed6614fed546b2e1ce87464889d, type: 2}
+    - target: {fileID: 1567428296321529058, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 721211145062392399, guid: 79e37977d8f042243afdea359ec9d97b, type: 3}
     - target: {fileID: 1567428296321529059, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
       propertyPath: m_Name
       value: Sniper
+      objectReference: {fileID: 0}
+    - target: {fileID: 2334614945122421952, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.1034
+      objectReference: {fileID: 0}
+    - target: {fileID: 2334614945122421952, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0028
       objectReference: {fileID: 0}
     - target: {fileID: 3591027857614761955, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
       propertyPath: m_IsActive
