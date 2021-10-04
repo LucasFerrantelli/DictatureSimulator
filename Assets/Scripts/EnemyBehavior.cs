@@ -28,23 +28,23 @@ public class EnemyBehavior : MonoBehaviour
         if(LawManager.Instance.allowSelfDefense)
         {
             //CameraHandler.Instance.remainingShakeDuration = 4;
-            //TakeDamage(10);
-            if(Random.Range(0,10) < 2)
-            {
-                ApplyEffect(AdditionalEffect.Poison);
-            }
-            else if (Random.Range(0, 10) < 6)
-            {
-                ApplyEffect(AdditionalEffect.Stun);
-            }
-            else if (Random.Range(0, 10) < 8)
-            {
-                TakeDamage(0.01f);
-            }
-            else
-            {
-                TakeDamage(200);
-            }
+            TakeDamage(0.1f);
+            //if(Random.Range(0,10) < 2)
+            //{
+            //    ApplyEffect(AdditionalEffect.Poison);
+            //}
+            //else if (Random.Range(0, 10) < 6)
+            //{
+            //    ApplyEffect(AdditionalEffect.Stun);
+            //}
+            //else if (Random.Range(0, 10) < 8)
+            //{
+            //    TakeDamage(0.01f);
+            //}
+            //else
+            //{
+            //    TakeDamage(200);
+            //}
         }
     }
 
@@ -75,6 +75,7 @@ public class EnemyBehavior : MonoBehaviour
         }
         else
         {
+            transform.position += new Vector3(0, 0, -0.1f);
             GetComponentInChildren<Animator>().Play("Hurt");
         }
     }
