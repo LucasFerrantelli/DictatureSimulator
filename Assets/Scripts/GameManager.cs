@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
 	public List<EnemyBehavior> currentEnemies;
 	public bool raining;
 	public float solarMultiplier = 1;
+	public int day = 1;
 
 	[Header("Families")]
 	public List<float> familiesScores;
@@ -40,8 +41,9 @@ public class GameManager : MonoBehaviour
 	public List<EnemyFamily> families;
 
 	[Header("References")]
-	public Text hpBaseTextDisplay;
-	public Text moneyTextDisplay;
+	public TMP_Text hpBaseTextDisplay;
+	public TMP_Text dayTextDisplay;
+	public TMP_Text moneyTextDisplay;
 	public Text timeTextDisplay;
 	public List<MonsterSpawner> spawners;
 	public List<MonsterSpawner> grassSpawners;
@@ -63,7 +65,7 @@ public class GameManager : MonoBehaviour
 	public List<Mb_Tower> prefabTurrets;
 
 
-	public enum GameState { InFight, Preparation, LawVoting, dayEnd }
+	public enum GameState { InFight, Preparation, LawVoting, dayEnd, gameIntro, defeat }
 
 	[Serializable]
 	public struct EnemyFamily
@@ -75,16 +77,22 @@ public class GameManager : MonoBehaviour
 
 
 
+
+
 	void Awake ()
 	{
 		Instance = this;
 		Init();
-		StartLawVotting();
+		//StartLawVotting();
 		mainCam = Camera.main;
-
+		gameState = GameState.gameIntro;
+		CameraHandler.Instance.GetComponent<Animator>().Play("Intro");
 
 		lightHD = lightRef.GetComponent<HDAdditionalLightData>();
 	}
+
+
+
 	HDAdditionalLightData lightHD;
 	void UpdateLight ()
 	{
@@ -134,6 +142,8 @@ public class GameManager : MonoBehaviour
 
 	public void StartLawVotting ()
 	{
+		day++;
+		CameraHandler.Instance.GetComponent<Animator>().Play("LawVotting");
 		gameUIAnimator.Play("LawVotting");
 		LawManager.Instance.SetUpEventLaw(LawManager.Instance.PickRandomEvent());
 		for (int i = 0; i < familiesScores.Capacity; i++)
@@ -167,6 +177,7 @@ public class GameManager : MonoBehaviour
 
 	public void StartPreparation ()
 	{
+		CameraHandler.Instance.GetComponent<Animator>().Play("DefaultGame");
 		ResetLight();
 		gameUIAnimator.Play("Preparation");
 		currentTime = defaultTime;
@@ -193,14 +204,28 @@ public class GameManager : MonoBehaviour
 
 	}
 
+	void NexusLost()
+    {
+		mobSpeedMultiplier = 0;
+		gameState = GameState.defeat;
+		CameraHandler.Instance.GetComponent<Animator>().Play("NexusLost");
+		gameUIAnimator.Play("NoneDisplayed");
+		Destroy(this);
+
+	}
 
 
 	void FixedUpdate ()
 	{
+		if(baseHP ==0)
+        {
+			NexusLost();
+        }
 		if (gameState == GameState.InFight)
 		{
 			currentTime -= gameSpeed / 50;
 
+			
 
 
 			UpdateLight();
@@ -325,13 +350,24 @@ public class GameManager : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+		dayTextDisplay.text = "DAY " + day.ToString();
 		moneyTextDisplay.text = currentMoney.ToString();
-		hpBaseTextDisplay.text = baseHP.ToString();
+		hpBaseTextDisplay.text = baseHP.ToString() + " / 50";
 		timeTextDisplay.text = currentTime.ToString();
 		if (Input.GetKeyDown(KeyCode.Mouse0))
 			RayForInterraction();
 
-
+		if(gameState== GameState.gameIntro)
+        {
+			if (Input.anyKey)
+			{
+				StartPreparation();
+			}
+		}
+		if (Input.GetKeyDown(KeyCode.K))
+		{
+			NexusLost();
+		}
 
 	}
 

@@ -134,10 +134,11 @@ public class LawManager : MonoBehaviour
 
     public enum Law { IncreaseFamilyStat,
                      WalkOnGrass, CantWalkOnGrass,
-                       UnlockTurret, IncreaseTurretCost, DecreaseTurretCost, 
+                       UnlockTurret, LockTurret, 
                     IncreaseOverallDifficulty, IncreaseOverallSpeed, IncreaseDayTime,moneyIncrease, IncreaseDamageMultiplier,
                       IncreaseFreezeDuration, IncreaseSlowDuration, IncreasePoisonDamage, IncreaseSlowAmount,
-                        IncreasePoliceViolence, AllowSelfDefense, ForbidSelfDefense}
+                        IncreasePoliceViolence, AllowSelfDefense, ForbidSelfDefense,
+    }
 
     public void ApplyLaw(LawStructure lawstruct)
     {
@@ -189,7 +190,12 @@ public class LawManager : MonoBehaviour
             case Law.ForbidSelfDefense:
                 allowSelfDefense = false;
                 break;
-
+            case Law.LockTurret:
+                GameManager.Instance.turrets[Mathf.RoundToInt(lawstruct.value)].SetActive(false);
+                break;
+            case Law.UnlockTurret:
+                GameManager.Instance.turrets[Mathf.RoundToInt(lawstruct.value)].SetActive(true);
+                break;
             default:
                 break;
         }
