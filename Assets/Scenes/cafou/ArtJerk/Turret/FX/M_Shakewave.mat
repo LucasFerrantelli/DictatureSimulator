@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_NuclearShot 1
+  m_Name: M_Shakewave
   m_Shader: {fileID: -6465566751694194690, guid: b8d08c46ec1c07d4f899870f27d7bb16, type: 3}
   m_ShaderKeywords: _ENABLE_FOG_ON_TRANSPARENT _SURFACE_TYPE_TRANSPARENT
   m_LightmapFlags: 0
@@ -27,7 +27,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_1dfd7c6026c84fe5bbd0cbde33d86b4e:
-        m_Texture: {fileID: 2800000, guid: 8406a36b00415564eaa9156cd02c8350, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2d96eeb7b0cd45248ba8c23057e77995, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AnisotropyMap:
@@ -131,7 +131,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_bbca4d4a616a47a49e6154f9cbbea395: 0.19
+    - Vector1_bbca4d4a616a47a49e6154f9cbbea395: 1
     - Vector1_ec69951ea18d4725a8add0cb0727f759: 0
     - _AORemapMax: 1
     - _AORemapMin: 0
@@ -263,8 +263,8 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 0
     m_Colors:
-    - Color_a62f8426e65b43c6a4333b991543b1eb: {r: 0.5636299, g: 0.8, b: 0.5411765, a: 0}
-    - Color_a62f8426e65b43c6a4333b991543b1eb_1: {r: 0.98042566, g: 2.0912955, b: 0.5030946, a: 0.9647059}
+    - Color_a62f8426e65b43c6a4333b991543b1eb: {r: 1, g: 0.7466493, b: 0, a: 0}
+    - Color_a62f8426e65b43c6a4333b991543b1eb_1: {r: 2.6024568, g: 2.2521412, b: 0.33144498, a: 0.9647059}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
