@@ -7,21 +7,45 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1148471544217186701, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.292896
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148471544217186701, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.292896
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148471544217186701, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.292896
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148471544217186701, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.012201
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148471544217186701, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.14855
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148471544217186701, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.11778
+      objectReference: {fileID: 0}
     - target: {fileID: 1567428296321529054, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1567428296321529054, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 744.7043
+      value: -20.39
       objectReference: {fileID: 0}
     - target: {fileID: 1567428296321529054, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 75.87561
+      value: -0.68361807
       objectReference: {fileID: 0}
     - target: {fileID: 1567428296321529054, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -45.61
+      value: 45.42
       objectReference: {fileID: 0}
     - target: {fileID: 1567428296321529054, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
       propertyPath: m_LocalRotation.w
