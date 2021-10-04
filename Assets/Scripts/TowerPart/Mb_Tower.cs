@@ -4,10 +4,11 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using System.Linq;
 using UnityEngine.Events;
+using DG.Tweening;
 
 public class Mb_Tower : MonoBehaviour
 {
-	public Sc_TowerInfos baseDatas;
+	[InlineEditor]public Sc_TowerInfos baseDatas;
 	[HideInInspector] public TowerData liveDatas;
 	[SerializeField] GameObject projectilePrefab;
 	public Mb_Spot mySpot;
@@ -18,7 +19,7 @@ public class Mb_Tower : MonoBehaviour
 	public UnityEvent shootCanalisation, shootRealisation;
 	public Animator anim;
 	public Transform pivot;
-
+	public GameObject damageFx;
 	private void OnEnable ()
 	{
 		Init();
@@ -68,12 +69,11 @@ public class Mb_Tower : MonoBehaviour
 	void Shoot ()
 	{
 		shooting = false;
-		print("im here");
 
 		reloadTime = liveDatas.reloadTime;
 		annonciationTime = liveDatas.annonciationTime;
 
-		if (liveDatas.towerDealingType == TowerDamageType.direct)
+		if (liveDatas.towerDealingType == TowerDamageType.aoe)
 		{
 			foreach (EnemyBehavior _en in enemiesInRange(liveDatas.range))
 			{
@@ -82,10 +82,53 @@ public class Mb_Tower : MonoBehaviour
 				anim.transform.LookAt(_en.transform);
 			}
 		}
-		else if (liveDatas.towerDealingType == TowerDamageType.aoe)
+		else if (liveDatas.towerDealingType == TowerDamageType.direct)
 		{
-			EnemyBehavior[] _listOfTarget = enemiesInRange(liveDatas.range + 1);
-			if (_listOfTarget.Length > 0)
+			List<EnemyBehavior> _listOfTarget = enemiesInRange(liveDatas.range + 1).ToList();
+
+			if (liveDatas.effectToApply != AdditionalEffect.None)
+			{
+				List<EnemyBehavior> _tempList = new List<EnemyBehavior>();
+
+				if(liveDatas.effectToApply == AdditionalEffect.Poison)
+				{
+					foreach(EnemyBehavior _en in _listOfTarget)
+					{
+						if (_en.currentState.HasFlag(CurrentState.IsPoisonned))
+							_tempList.Add(_en);
+					}
+				}
+
+				if (liveDatas.effectToApply == AdditionalEffect.Slow)
+				{
+					foreach (EnemyBehavior _en in _listOfTarget)
+					{
+						if (_en.currentState.HasFlag(CurrentState.IsSlowed))
+							_tempList.Add(_en);
+					}
+				}
+
+				if (liveDatas.effectToApply == AdditionalEffect.Stun)
+				{
+					foreach (EnemyBehavior _en in _listOfTarget)
+					{
+						if (_en.currentState.HasFlag(CurrentState.IsPoisonned))
+							_tempList.Add(_en);
+					}
+				}
+
+				if (_listOfTarget.Count > _tempList.Count)
+				{
+					foreach(EnemyBehavior _en in _tempList)
+					{
+						_listOfTarget.Remove(_en);
+					}
+				}
+			}
+
+			//clean des targets pas interessante
+
+			if (_listOfTarget.Count > 0)
 			{
 				pivot.LookAt(new Vector3(_listOfTarget[0].transform.position.x, transform.position.y, _listOfTarget[0].transform.position.z));
 			}
@@ -95,10 +138,15 @@ public class Mb_Tower : MonoBehaviour
 			for (int i = 0; i < liveDatas.numberOfTarget; i++)
 			{
 
-				if (i > _listOfTarget.Length)
+				if (i > _listOfTarget.Count)
 					break;
 
-				print(_listOfTarget[i].name);
+				//Impact
+				GameObject _proj = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+				_proj.transform.DOMove(_listOfTarget[i].transform.position, .1f).OnComplete(() =>
+				Instantiate(damageFx, _listOfTarget[i].transform.position, Quaternion.identity));
+				
+				//damages
 				_listOfTarget[i].TakeDamage(liveDatas.damage); ;
 				_listOfTarget[i].ApplyEffect(liveDatas.effectToApply);
 			}
@@ -109,14 +157,13 @@ public class Mb_Tower : MonoBehaviour
 			if (_listOfTargetFlame.Length > 0)
 			{
 				pivot.LookAt(new Vector3(_listOfTargetFlame[0].transform.position.x, transform.position.y, _listOfTargetFlame[0].transform.position.z));
-			}
-			else
-				return;
-			foreach (EnemyBehavior _en in enemiesInRange(liveDatas.range))
-			{
-				_en.TakeDamage(liveDatas.damage);
-				_en.ApplyEffect(liveDatas.effectToApply);
-				anim.transform.LookAt(_en.transform);
+
+				foreach (EnemyBehavior _en in _listOfTargetFlame)
+				{
+					_en.TakeDamage(liveDatas.damage);
+					_en.ApplyEffect(liveDatas.effectToApply);
+					anim.transform.LookAt(_en.transform);
+				}
 			}
 		}
 	}
@@ -138,6 +185,7 @@ public class Mb_Tower : MonoBehaviour
 			_allEnemies.Add(_hit.GetComponent<EnemyBehavior>());
 		}
 		_allEnemies = _allEnemies.OrderBy(z => z.transform.position.z).ToList<EnemyBehavior>();
+		_allEnemies.Reverse();
 		return _allEnemies.ToArray();
 	}
 

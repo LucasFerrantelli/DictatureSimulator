@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dea3522ff74bc7040866bcdd2010945a, type: 3}
   m_Name: StunTower
   m_EditorClassIdentifier: 
-  towerName: SniperKomando
-  towerDescription: 'Shootshoothardandfar but slow '
+  towerName: GlacialSniper
+  towerDescription: Long range, stunning enemy, medium damage, medium rate
   towerIcon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   towerBaseDatas:
-    price: 250
+    price: 450
     range: 20
-    damage: 100
+    damage: 5
     numberOfTarget: 1
-    reloadTime: 0
+    reloadTime: 0.5
     annonciationTime: 0.2
     towerProjectileSpeed: 0
     towerDealingType: 0

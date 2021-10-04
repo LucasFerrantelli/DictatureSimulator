@@ -16,7 +16,7 @@ MonoBehaviour:
   towerDescription: 'Shootshoothardandfar but slow '
   towerIcon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   towerBaseDatas:
-    price: 250
+    price: 150
     range: 10
     damage: 10
     numberOfTarget: 1

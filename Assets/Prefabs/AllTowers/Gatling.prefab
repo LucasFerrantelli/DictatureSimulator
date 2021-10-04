@@ -57,7 +57,11 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 103405e35bfa6e64393570455fdf5225, type: 2}
     - target: {fileID: 1567428296321529059, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
       propertyPath: m_Name
-      value: Electric Variant
+      value: Gatling
+      objectReference: {fileID: 0}
+    - target: {fileID: 4887772841745753226, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}

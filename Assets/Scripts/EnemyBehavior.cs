@@ -20,6 +20,8 @@ public class EnemyBehavior : MonoBehaviour
     //Enum declarations
     public enum EnemyType {None, Hippie, KKK, Biker, Nudist, Army};
     public enum State { Walking, Dead};
+	[HideInInspector] public CurrentState currentState;
+
 
     void OnMouseDown()
     {
@@ -54,7 +56,9 @@ public class EnemyBehavior : MonoBehaviour
         GameManager.Instance.currentEnemies.Add(this);
         movementspeed += speedAdditioner;
         hp += hpAdded;
-        if(movementspeed < 1)
+		currentState = CurrentState.None;
+
+		if (movementspeed < 1)
         {
             movementspeed = 1;
         }
@@ -90,19 +94,22 @@ public class EnemyBehavior : MonoBehaviour
                 case AdditionalEffect.Slow:
                     slowPercent = GameManager.Instance.slowPercent;
                     slowRemainingDuration = GameManager.Instance.slowDuration;
-
+					currentState |= CurrentState.IsSlowed;
 
                     break;
                 case AdditionalEffect.Poison:
                     poisonDamage = GameManager.Instance.poisonDamage;
                     poisonRemainingDuration = GameManager.Instance.poisonDuration;
                     GetComponentInChildren<Animator>().Play("Poisoned");
+					currentState |= CurrentState.IsPoisonned;
 
-                    break;
+					break;
                 case AdditionalEffect.Stun:
                     freezeRemainingDuration = GameManager.Instance.freezeDuration;
                     GetComponentInChildren<Animator>().Play("Frozen");
-                    break;
+					currentState |= CurrentState.IsStunned;
+
+					break;
                 default:
                     break;
             }
@@ -148,9 +155,10 @@ public class EnemyBehavior : MonoBehaviour
             if(slowRemainingDuration <0)
             {
                 slowPercent = 0;
-            }
+				currentState &= ~CurrentState.IsSlowed;
+			}
 
-            if (poisonRemainingDuration >= 0)
+			if (poisonRemainingDuration >= 0)
             {
                 GetComponentInChildren<Animator>().SetBool("poisoned", true);
                 if(poisonRemainingDuration % 10 == 0)
@@ -161,14 +169,15 @@ public class EnemyBehavior : MonoBehaviour
             else
             {
                 GetComponentInChildren<Animator>().SetBool("poisoned", false);
-            }
+				currentState &= ~CurrentState.IsPoisonned;
+			}
 
-            if (freezeRemainingDuration <= 0)
+			if (freezeRemainingDuration <= 0)
             {
-                
                 transform.position += new Vector3(0, 0, (1 - slowPercent) * GameManager.Instance.mobSpeedMultiplier * movementspeed / 50);
-            }
-        }
+				currentState &= ~CurrentState.IsStunned;
+			}
+		}
         
         
     }
@@ -179,3 +188,6 @@ public class EnemyBehavior : MonoBehaviour
 
 public enum AdditionalEffect {None, Slow, Poison, Stun }
 
+
+[System.Flags]
+public enum CurrentState { None = 1 << 0, IsSlowed = 1 << 1, IsPoisonned = 1 << 2, IsStunned = 1 << 3 }

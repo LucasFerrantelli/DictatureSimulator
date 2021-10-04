@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dea3522ff74bc7040866bcdd2010945a, type: 3}
   m_Name: AoeElectric
   m_EditorClassIdentifier: 
-  towerName: SniperKomando
-  towerDescription: 'Shootshoothardandfar but slow '
+  towerName: Tesla
+  towerDescription: big aoe, slow, low damage, 1shot/second
   towerIcon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   towerBaseDatas:
-    price: 250
-    range: 20
-    damage: 100
+    price: 350
+    range: 15
+    damage: 10
     numberOfTarget: 1
     reloadTime: 0
-    annonciationTime: 0.2
+    annonciationTime: 1
     towerProjectileSpeed: 0
-    towerDealingType: 0
-    effectToApply: 0
+    towerDealingType: 1
+    effectToApply: 1
