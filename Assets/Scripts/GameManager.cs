@@ -53,7 +53,10 @@ public class GameManager : MonoBehaviour
     public List<GameObject> policeCarSpawner;
     public GameObject policeCar;
     public Light lightRef;
+    public GameObject rain;
 
+    public GameObject stateStabilityBar;
+    public float stateStability;
 
     [Header("Economy")]
     public float moneyPerDay = 1000;
@@ -108,12 +111,13 @@ public class GameManager : MonoBehaviour
         if (raining)
         {
             solarMultiplier = 0.11f;
+
         }
         else
         {
-            if (lightRef.colorTemperature < 20000)
+            if (lightRef.colorTemperature < 30000)
             {
-                lightRef.colorTemperature++;
+                lightRef.colorTemperature+= 3;
                 solarMultiplier = 1f;
             }
             else
@@ -151,6 +155,25 @@ public class GameManager : MonoBehaviour
 
     public void StartLawVotting()
     {
+        for (int i = 0; i < familiesScores.Count; i++)
+        {
+            familiesScores[i] -= 0.5f;
+            if(familiesScores[i] < 0)
+            {
+                familiesScores[i] = 0;
+            }
+        }
+        rainProbability -= 0.05f;
+        damageMultiplier -= 0.02f;
+        if(damageMultiplier <= 0.1f)
+        {
+            damageMultiplier = 0.1f;
+        }
+        familiesScores[UnityEngine.Random.Range(0, familiesScores.Count-1)] += 0.1f;
+        familiesScores[UnityEngine.Random.Range(0, familiesScores.Count - 1)] += 0.1f;
+
+        difficulty += 0.1f;
+        stateStability = 0;
         raining = false;
         ResetLight();
         day++;
@@ -191,10 +214,12 @@ public class GameManager : MonoBehaviour
         if (UnityEngine.Random.Range(0, 1f) < rainProbability)
         {
             raining = true;
+            rain.SetActive(true);
         }
         else
         {
             raining = false;
+            rain.SetActive(false);
         }
 
         CameraHandler.Instance.GetComponent<Animator>().Play("DefaultGame");
@@ -266,6 +291,14 @@ public class GameManager : MonoBehaviour
 
     public void DeclareWaves()
     {
+        if (rainProbability < 0)
+        {
+            rainProbability = 0;
+        }
+        if (rainProbability > 1)
+        {
+            rainProbability = 0.98f;
+        }
         List<MonsterSpawner> _spawners = spawners;
 
         if (LawManager.Instance.grassSpawners)
@@ -362,13 +395,15 @@ public class GameManager : MonoBehaviour
     void AddMoney(float _moneyAdded)
     {
         currentMoney += _moneyAdded;
-        moneyTextDisplay.text = currentMoney.ToString();
+        moneyTextDisplay.text = "$" + currentMoney.ToString();
     }
 
 
     // Update is called once per frame
     void Update()
     {
+        
+        stateStabilityBar.transform.localScale= new Vector3(stateStability, 1, 1);
         RayForTower();
 
         dayTextDisplay.text = "DAY " + day.ToString();

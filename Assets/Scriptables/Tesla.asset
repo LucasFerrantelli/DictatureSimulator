@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dea3522ff74bc7040866bcdd2010945a, type: 3}
   m_Name: Tesla
   m_EditorClassIdentifier: 
-  towerName: SniperKomando
-  towerDescription: 'Shootshoothardandfar but slow '
+  towerName: Tesla
+  towerDescription: Deal zone damage, slow enemies.
   towerIcon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   towerBaseDatas:
-    price: 250
-    range: 20
-    damage: 100
+    price: 500
+    range: 3
+    damage: 20
     numberOfTarget: 1
-    reloadTime: 0
-    annonciationTime: 0.2
+    reloadTime: 3
+    annonciationTime: 1
     towerProjectileSpeed: 0
-    towerDealingType: 0
-    effectToApply: 0
+    towerDealingType: 1
+    effectToApply: 1

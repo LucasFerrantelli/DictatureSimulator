@@ -63,6 +63,10 @@ PrefabInstance:
       propertyPath: projectilePrefab
       value: 
       objectReference: {fileID: 3030692083113629920, guid: bc4c7addb9cd02a498ac8628a5eb29ab, type: 3}
+    - target: {fileID: 1567428296321529058, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
+      propertyPath: liveDatas.effectToApply
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1567428296321529059, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
       propertyPath: m_Name
       value: StunTower
@@ -88,6 +92,10 @@ PrefabInstance:
       value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 6018726183160473248, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6317087277852934820, guid: 592b2a42762ee3e409e72a845c70e353, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

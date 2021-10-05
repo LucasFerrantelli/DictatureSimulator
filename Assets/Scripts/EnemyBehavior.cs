@@ -12,6 +12,11 @@ public class EnemyBehavior : MonoBehaviour
     public EnemyType enemyType;
     public State state;
 
+    public GameObject ice;
+    public GameObject poison;
+    public GameObject hurt;
+    public GameObject reward;
+
     [Header("Modifiers")]
     public float hpAdded;
     public float speedAdditioner;
@@ -28,7 +33,8 @@ public class EnemyBehavior : MonoBehaviour
         if(LawManager.Instance.allowSelfDefense)
         {
             //CameraHandler.Instance.remainingShakeDuration = 4;
-            TakeDamage(0.1f);
+            //ApplyEffect(AdditionalEffect.Stun);
+            TakeDamage(10);
             //if(Random.Range(0,10) < 2)
             //{
             //    ApplyEffect(AdditionalEffect.Poison);
@@ -66,7 +72,7 @@ public class EnemyBehavior : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        
+        Instantiate(hurt, transform);
         hp -= damage * GameManager.Instance.damageMultiplier;
         
         if (hp <= 0)
@@ -126,9 +132,10 @@ public class EnemyBehavior : MonoBehaviour
     
     public void Die()
     {
+        reward.SetActive(true);
         isAlive = false;
         GetComponentInChildren<Animator>().Play("Die");
-
+        GameManager.Instance.stateStability += 0.01f;
     }
 
     public void RemoveHim()
@@ -167,6 +174,7 @@ public class EnemyBehavior : MonoBehaviour
 
 			if (poisonRemainingDuration >= 0)
             {
+                poison.SetActive(true);
                 GetComponentInChildren<Animator>().SetBool("poisoned", true);
                 if(poisonRemainingDuration % 10 == 0)
                 {
@@ -177,13 +185,19 @@ public class EnemyBehavior : MonoBehaviour
             {
                 GetComponentInChildren<Animator>().SetBool("poisoned", false);
 				currentState &= ~CurrentState.IsPoisonned;
-			}
+                poison.SetActive(false);
+            }
 
 			if (freezeRemainingDuration <= 0)
             {
                 transform.position += new Vector3(0, 0, (1 - slowPercent) * GameManager.Instance.mobSpeedMultiplier * movementspeed / 50);
 				currentState &= ~CurrentState.IsStunned;
-			}
+                ice.SetActive(false);
+            }
+            else
+            {
+                ice.SetActive(true);
+            }
 		}
         
         

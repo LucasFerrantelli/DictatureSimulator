@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: StunTower
   m_EditorClassIdentifier: 
   towerName: GlacialSniper
-  towerDescription: Long range, stunning enemy, medium damage, medium rate
+  towerDescription: Stuns enemy.
   towerIcon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   towerBaseDatas:
     price: 450
-    range: 20
+    range: 5
     damage: 5
     numberOfTarget: 1
-    reloadTime: 0.5
+    reloadTime: 1.5
     annonciationTime: 0.2
     towerProjectileSpeed: 0
     towerDealingType: 0

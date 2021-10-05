@@ -138,7 +138,7 @@ public class LawManager : MonoBehaviour
                        UnlockTurret, LockTurret, IncreaseTurretStat,
                     IncreaseOverallDifficulty, IncreaseOverallSpeed, IncreaseDayTime,moneyIncrease, IncreaseDamageMultiplier,
                       IncreaseFreezeDuration, IncreaseSlowDuration, IncreasePoisonDamage, IncreaseSlowAmount,
-                        IncreasePoliceViolence, AllowSelfDefense, ForbidSelfDefense,
+                        IncreasePoliceViolence, AllowSelfDefense, ForbidSelfDefense, rainprobabilityIncrease
     }
 
     public void ApplyLaw(LawStructure lawstruct)
@@ -199,6 +199,9 @@ public class LawManager : MonoBehaviour
                 break;
             case Law.IncreaseTurretStat:
                 IncreaseTurretStat(lawstruct.elementIndex, lawstruct.value, lawstruct.stat);
+                break;
+            case Law.rainprobabilityIncrease:
+                GameManager.Instance.rainProbability += lawstruct.value;
                 break;
             default:
                 break;

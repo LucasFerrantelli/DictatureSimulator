@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dea3522ff74bc7040866bcdd2010945a, type: 3}
   m_Name: LanceFlamme
   m_EditorClassIdentifier: 
-  towerName: LanceFlamme
-  towerDescription: 'Shootshoothardandfar but slow '
+  towerName: FlameThrower
+  towerDescription: A short range high damage turret.
   towerIcon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   towerBaseDatas:
-    price: 500
+    price: 600
     range: 3
     damage: 1
     numberOfTarget: 1

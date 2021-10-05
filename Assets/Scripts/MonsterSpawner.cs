@@ -62,7 +62,7 @@ public class MonsterSpawner : MonoBehaviour
     void DelayGeneration()
     {
         currentDelayBetweenSpawn = (delayBetweenSpawn + delayBetweenSpawn * Random.Range(-0.5f, 0.5f))
-                * (1 - familyScore) + (1-GameManager.Instance.difficulty/5);
+                * (1 - familyScore) + (3-GameManager.Instance.difficulty/5);
         if(currentDelayBetweenSpawn < 0.5)
         {
             currentDelayBetweenSpawn = 0.5f;

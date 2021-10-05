@@ -49,7 +49,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9075771834314585814, guid: ac6dea7408a0f614d8f17abdaea4c06e, type: 3}
       propertyPath: hp
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9075771834314585814, guid: ac6dea7408a0f614d8f17abdaea4c06e, type: 3}
       propertyPath: enemyType

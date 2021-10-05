@@ -25,6 +25,7 @@ public class Mb_Tower : MonoBehaviour
     public GameObject setActiveWhenAttacking;
     public GameObject buttonSell;
     public bool allowAttackCancel = true;
+    public bool isSolar;
 
     //public ParticleSystem additionalParticles;
     private void OnEnable()
@@ -63,7 +64,15 @@ public class Mb_Tower : MonoBehaviour
         }
         else if (enemiesInRange(liveDatas.range).Length > 0 && !shooting)
         {
-            StartShooting();
+            if(isSolar && GameManager.Instance.solarMultiplier <0.8f)
+            {
+
+            }
+            else
+            {
+                StartShooting();
+
+            }
 
         }
         else if (enemiesInRange(liveDatas.range).Length == 0)
@@ -187,9 +196,13 @@ public class Mb_Tower : MonoBehaviour
                     if (i >= _listOfTarget.Count)
                         break;
                     //Impact
-                    GameObject _proj = Instantiate(projectilePrefab, canon.transform.position, Quaternion.identity);
+                    if(projectilePrefab != null)
+                    {
+                        GameObject _proj = Instantiate(projectilePrefab, canon.transform.position, Quaternion.identity);
 
-                    _proj.transform.DOMove(_listOfTarget[i].transform.position, .1f);
+                        _proj.transform.DOMove(_listOfTarget[i].transform.position, .1f);
+
+                    }
                     //Instantiate(damageFx, _listOfTarget[i].transform.position, Quaternion.identity));
                     //damages
                     _listOfTarget[i].TakeDamage(liveDatas.damage);

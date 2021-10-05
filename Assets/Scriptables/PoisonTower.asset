@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: PoisonTower
   m_EditorClassIdentifier: 
   towerName: Poison Tower
-  towerDescription: Shoot and poison the enemy
+  towerDescription: Poison its target.
   towerIcon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   towerBaseDatas:
-    price: 250
-    range: 10
+    price: 500
+    range: 8
     damage: 1
     numberOfTarget: 1
     reloadTime: 0.5
